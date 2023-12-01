@@ -1,0 +1,15 @@
+/* CSS for the spinner */
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border: 0.25em solid white; /* Adjust color by changing 'white' */
+    border-top: 0.25em solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
