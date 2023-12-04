@@ -71,8 +71,8 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
       }
       console.log(userData);
       const response=await PublicAxios.post('/teacher/additional-details',userData,{
-        headers:{
-          'Content-Type':'application/json',
+        headers: {
+          'Content-Type': 'multipart/form-data', // Make sure to set the correct content type
         },
         withCredentials:true,
       });
@@ -80,10 +80,10 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
         setLoading(false)
         console.log('sucess the submission');
         toast.success(response.data.message);
-        const { username, uid, access, refresh,is_admin,is_teacher,is_approvel,teacher_request} = response.data.teacher;
+        const { username, id, access, refresh,is_admin,is_teacher,is_approvel,teacher_request} = response.data.teacher;
       const userdata = {
         username,
-        user_id: uid, // Assuming user ID is received as 'uid'
+        user_id: id, // Assuming user ID is received as 'uid'
         access_token:access,
         refresh_token:refresh,
         role:is_admin ? 'ADMIN' : (is_teacher ? 'TEACHER' : 'USER'),
@@ -207,7 +207,7 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
                     className='w-full text-gray-600'
                     type='file'
                     accept='.pdf, .doc, .docx, .jpg, .jpeg, .png'
-                    onChange={(e)=>setIdproof(e.target.value)}
+                    onChange={(e)=>setIdproof(e.target.files[0])}
                 />
             </div>
             <div className='pl-4 ml-4 relative mb-4 w-full'>
@@ -217,7 +217,7 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
                     className='w-full text-gray-600'
                     type='file'
                     accept='.pdf, .doc, .docx, .jpg, .jpeg, .png'
-                    onChange={(e)=>setCertificate(e.target.value)}
+                    onChange={(e)=>setCertificate(e.target.files[0])}
                 />
             </div>
         

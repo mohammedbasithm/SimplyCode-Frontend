@@ -9,6 +9,7 @@ import TeacherDashbord from '../pages/TeacherSide/TeacherDashbord/TeacherDashbor
 import TeacherProfile from '../pages/TeacherSide/TeacherProfile/TeacherProfile'
 import TeacherAuth from '../Component/Authorisation/TeacherAuth'
 import Error from '../Component/ErrorPage/Error'
+import CourseDetails from '../pages/TeacherSide/UploadCource/CourseDetails'
 function TeacherRoutes() {
   return (
     <>
@@ -21,6 +22,7 @@ function TeacherRoutes() {
           <Route path='/teacherpayments' element={<TeacherPayments/>}/>
           <Route path='/additionalinformations' element={<AdditionalDetails/>}/>
           <Route path='/teacherprofile' element={<TeacherProfile/>}/>
+          <Route path='/coursedetails/:id' element={<CourseDetails/>}/>
         </Route>
         <Route path='/*' element={<Error/>}/>
       </Routes>
