@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react'
 import { Link,useNavigate } from 'react-router-dom';
-import instace from '../../axios'
-import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux'
 import { userLogout } from '../../ReduxStore/ReduxStore';
 import 'hover.css/css/hover-min.css'
@@ -41,8 +39,8 @@ export const Navigation = () => {
       
     
     return (
-      <div class="bg-gray-900 fixed top-0 w-full z-10">
-        <div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div class="bg-indigo-100 fixed top-0 w-full z-10 shadow-md">
+        <div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
           <div class="relative flex items-center justify-between">
             <Link
               to="/"
@@ -51,7 +49,7 @@ export const Navigation = () => {
               class="inline-flex items-center"
             >
               <svg
-                class="w-8 text-teal-accent-400"
+                class="w-8 text-blue-900"
                 viewBox="0 0 24 24"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -65,7 +63,7 @@ export const Navigation = () => {
                 <rect x="14" y="1" width="7" height="6" />
                 <rect x="14" y="11" width="7" height="12" />
               </svg>
-              <span class="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
+              <span class="ml-2 text-xl font-bold tracking-wide text-blue-900 uppercase">
                 Simply Code
               </span>
             </Link>
@@ -75,37 +73,37 @@ export const Navigation = () => {
                   to='/'
                   aria-label="Our product"
                   title="Our product"
-                  class="hvr-underline-from-left font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Home
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/course"
+                  to={isAuth.role === 'USER' ? "/course" : "/login"}
                   aria-label="Our product"
                   title="Our product"
-                  class="hvr-underline-from-left font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Course
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/aboutus"
+                  to={isAuth.role === 'USER' ? "/aboutus" :"/login"}
                   aria-label="Product pricing"
                   title="Product pricing"
-                  class="hvr-underline-from-left font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   About Us
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/blog"
+                  to={isAuth.role === 'USER' ? "/blog" :"/login"}
                   aria-label="About us"
                   title="About us"
-                  class="hvr-underline-from-left font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Blog
                 </Link>
@@ -114,12 +112,12 @@ export const Navigation = () => {
             </ul>
             {logout?
             (<div>
-              <Link className="hvr-underline-from-left mr-5 text-white" to="/userprofile">
+              <Link className="hvr-underline-from-left mr-5 text-blue-600" to="/userprofile">
               {name}
               </Link>
               <button
               onClick={logoutHandle}
-              className='hvr-bounce-to-right inline-flex items-center bg-green-400 border-0 py-1 px-3 mt-4 md:mt-0'
+              className='hvr-bounce-to-right inline-flex items-center bg-gray-300 shadow-sm border-0 py-1 px-3 mt-4 md:mt-0'
               
               >logout</button>
             </div>
@@ -128,9 +126,9 @@ export const Navigation = () => {
               <li>
                 <Link
                   to="/login"
-                  class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-blue-600 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   aria-label="Sign up"
-                  title="Sign up"
+                  title="login"
                 >
                   Sign In
                 </Link>

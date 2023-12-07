@@ -6,7 +6,7 @@ const ListCourse = ({courses}) => {
     <>
         
             <div className="container mx-auto p-3 border-gray-200 overflow-x-auto">
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap ">
             {courses.map((course) => (
               <div
                 key={course.user_id}  

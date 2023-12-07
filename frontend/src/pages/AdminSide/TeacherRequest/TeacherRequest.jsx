@@ -19,6 +19,7 @@ const TeacherRequest = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState('');
+  const[submission,setSumission]=useState(false)
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
   };
@@ -37,7 +38,8 @@ const TeacherRequest = () => {
         setTeachers(filteredTeacherRequests);
         setFilteredTeachers(filteredTeacherRequests);
       });
-  }, [ setTeachers,setFilteredTeachers]);
+      setSumission(false)
+  }, [ setTeachers,setFilteredTeachers,submission]);
 
   const accessChange = (user_id, isApprovel) => {
     console.log('---->>>',user_id,isApprovel);
@@ -59,14 +61,32 @@ const TeacherRequest = () => {
           setTeachers((preTeachers) =>
           preTeachers.filter((teacher) => teacher.id !== user_id)
         );
-
+          setSumission(true)
           toast.success(response.data.message)
         }else{
           toast.error(response.data.message)
         }
       });
   };
-
+  const handleReject=async(id)=>{
+    try {
+      console.log('teacher_id:',id);
+      const response=await PublicAxios.put('/admin/teacher-reject',{id},{
+        headers: {
+          'Content-Type': 'application/json',
+         
+        },
+        withCredentials:true,
+      });
+      toast.message(response.data.message)
+      console.log('teacher rejected success');
+      setSumission(true)
+    }
+    catch(error){
+      toast.error(error.response.error)
+      console.log('teacher rejected faild');
+    }
+  }
   const handleSearch = (value) => {
     setSearchInput(value);
 
@@ -203,7 +223,7 @@ function formatCurrentDate(date) {
                       Reject
                     </button> */}
                 <button class="relative inline-flex items-center justify-start inline-block px-6 py-1.5  overflow-hidden font-bold rounded-full group"  
-                  onClick={() => accessChange(teacher.id, false)}>
+                  onClick={() => handleReject(teacher.id)}>
                   <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
                   <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-red-700 opacity-100 group-hover:-translate-x-8"></span>
                   <span className="relative w-full text-left text-red-500 transition-colors duration-200 ease-in-out group-hover:text-gray-900">Reject</span>

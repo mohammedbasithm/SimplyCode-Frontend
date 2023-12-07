@@ -20,7 +20,6 @@ function SignUp() {
     const [password,setPassword]=useState('')
     const [confirmpassword,setConfirmpassword]=useState('')
     const [modal,setModal]=useState(false)
-    console.log('Modal State:', modal);
     const [prevTostId,setPrevTostId]=useState(null)
     const [loading,setLoading]=useState(false)
     const [showPassword, setShowPassword] = React.useState(false);
@@ -70,6 +69,7 @@ function SignUp() {
           const response=await axios.post('/signup',formData)
           console.log('registration successfully',response.data);
           // navigate('/login')
+          setLoading(false)
           setModal(true);
         
 

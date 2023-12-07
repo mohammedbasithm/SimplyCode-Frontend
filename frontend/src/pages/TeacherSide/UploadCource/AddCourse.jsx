@@ -7,10 +7,11 @@ import PublicAxios from '../../../axios';
 import { useEffect } from 'react';
 import { Await } from 'react-router-dom';
 
-const AddCourse = ({toggleModal}) => {
+const AddCourse = ({toggleModal,setFetchCourse}) => {
     const[loading,setLoading]=useState(false)
     const[categories,setCategories]=useState([])
     const isAuth=useSelector((state)=>state.user)
+    
     const [input,setInput]=useState({
         coursename:'',
         price:'',
@@ -104,6 +105,7 @@ const AddCourse = ({toggleModal}) => {
             console.log('success submission ');
             setLoading(false);
             toggleModal();
+            setFetchCourse(true)
             toast.success(response.data.message,{duration:2000});
           }
           catch(error){

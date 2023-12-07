@@ -36,7 +36,7 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
       toast.error('Please enter a valid IFSC code');
       return;
     }
-    if (phone.trim()==='' || !qualification.trim() || !bankAccount.trim() ||!ifsc.trim() || !idproof.trim() || !certificate.trim()){
+    if (phone.trim()==='' || !qualification.trim() || !bankAccount.trim() ||!ifsc.trim() ){
       toast.error('fill the form ')
       return;
     }const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf']; // Example extensions

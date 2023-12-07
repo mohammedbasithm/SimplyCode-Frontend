@@ -11,6 +11,7 @@ import ResendPassword from "../pages/UserSide/SignIn/ResendPassword";
 import Error from "../Component/ErrorPage/Error";
 import UserProfile from "../pages/UserSide/UserProfile/UserProfile";
 import BackAuth from "../Component/Authorisation/BackAuth";
+import ChapterCourse from "../pages/UserSide/Course/ChapterCourse";
 
 function UserRoutes() {
   return (
@@ -27,7 +28,8 @@ function UserRoutes() {
             <Route exact path="/forgot-password" element={<ForgetPassword/>}></Route>
             <Route exact path="/reset-password" element={<ResendPassword/>}></Route>
             <Route path="/userprofile" element={<UserProfile/>}/>
-            
+            <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/>
+           
             <Route path="/*" element={<Error/>}/>
         </Routes>
     </>

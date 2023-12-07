@@ -28,9 +28,9 @@ function Card3Presentation() {
     return (
     <div className="mt-7">
         <div className="flex justify-center items-center mt-5">
-            <hr className="flex-grow border-t border-gray-900"></hr>
-            <h1 className="mb-5 font-sans sm:text-4xl tracking-tight sm:leading-none px-4 text-center text-lg font-bold text-gray-900">Popular Courses</h1>
-            <hr className="flex-grow border-t border-gray-900"></hr>
+            <hr className="flex-grow border-t border-gray-300"></hr>
+            <h1 className="text-blue-950 mb-5 font-sans sm:text-4xl tracking-tight sm:leading-none px-4 text-center text-lg font-bold">Popular Courses</h1>
+            <hr className="flex-grow border-t border-gray-300"></hr>
         </div>     
       <div className="grid gap-8 grid-cols-1 border-dotted sm:grid-cols-2 md:grid-cols-3 p-3 sm:p-8">
         <Card3

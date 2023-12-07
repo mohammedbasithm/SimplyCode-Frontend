@@ -13,6 +13,7 @@ const UploadClass=()=> {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const[course,setCourse]=useState('')
   const[list,setList]=useState(false)
+  const[fetchCourse,setFetchCourse]=useState(false)
   useEffect(()=>{
     const courseData=async()=>{
       try{
@@ -32,7 +33,8 @@ const UploadClass=()=> {
       
     }
     courseData();
-  },[]);
+    setFetchCourse(false)
+  },[fetchCourse]);
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
   };
@@ -52,7 +54,7 @@ const UploadClass=()=> {
             </button>
         </div>
         {list&&<ListCourse courses={course}/>}
-        {isModalVisible&&<AddCourse toggleModal={toggleModal}/>}
+        {isModalVisible&&<AddCourse setFetchCourse={setFetchCourse}  toggleModal={toggleModal}/>}
     </div>
   )
 }

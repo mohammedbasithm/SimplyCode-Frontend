@@ -13,6 +13,7 @@ const AboutCourse = ({id}) => {
     const [chapterDetails,setChapterDetails]=useState('')
     const [selectChapter,setSelectChapter]=useState(null)
     const [modalVisible, setModalVisible] = useState(false);
+    const [newChapterAdded, setNewChapterAdded] = useState(false);
     const [input,setInput]=useState({
         'chapterName':'',
         'description':'',
@@ -51,7 +52,8 @@ const AboutCourse = ({id}) => {
             }
         }
         chapterFetchdata();
-    },[id]);
+        setNewChapterAdded(false);
+    },[id,newChapterAdded]);
     const handlechange=(e)=>{
         setInput((prev)=>({
             ...prev,
@@ -94,6 +96,7 @@ const AboutCourse = ({id}) => {
         });
         console.log(response.data.message);
         toast.success(response.data.message);
+        setNewChapterAdded(true);
         setLoading(false)
       }
       catch(error){
