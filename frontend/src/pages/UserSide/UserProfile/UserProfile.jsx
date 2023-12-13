@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../../../Component/Navbar/UserNav';
 import EditUserProfile from './EditUserProfile';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import CurrentPassword from './CurrentPassword';  
 import ChangePassword from './ChangePassword'
 
@@ -99,7 +99,7 @@ useEffect(() => {
       return (
         <>
         <Navigation/>
-          <div className="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover">
+          <div className="pt-8 font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover">
             <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
               <div id="profile" className="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
                 <div className="p-4 md:p-12 text-center lg:text-left">
@@ -190,6 +190,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
+          <Toaster/>
         </>
       );
     }

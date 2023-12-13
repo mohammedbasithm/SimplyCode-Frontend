@@ -1,14 +1,13 @@
-import React, { useState,useRef } from 'react'
+import React,{ useState,useRef } from 'react'
 import toast,{Toaster} from 'react-hot-toast'
 import PublicAxios from '../../../axios'
-
 import { useEffect } from 'react'
-
+import Spinner from  '../../../Component/Spinner/Spinner'
 
 function CurrentPassword({user_id,setChangepass,setNewpass}) {
     const [password,setPassword]=useState('')
     const modalRef = useRef(null);
-   
+    const [load,setLoad]=useState(false)
     useEffect(() => {
         const handleOutsideClick = (e) => {
           if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -27,11 +26,12 @@ function CurrentPassword({user_id,setChangepass,setNewpass}) {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         if(password.trim()===''){
-          showTost('please enter password')
+          toast.error('please enter password')
           return
         }
         
         try{
+            setLoad(true)
             const response=await PublicAxios.put('/current-password',{
                 password:password,
                 user_id:user_id,
@@ -44,27 +44,26 @@ function CurrentPassword({user_id,setChangepass,setNewpass}) {
             if(response.status===200){
                 toast.success(response.data.message);
                 console.log('success request');
-                
+                setLoad(false)
                 setNewpass(true);
                 setChangepass(false)
-                showTost(response.data.message)
+                toast.success(response.data.message)
                 console.log(newPass);
 
-            }else{
-                toast.error(response.message);
-                console.log('wrong password',response);
             }
         }
         catch(error){
+            
             console.log(error.response.data.message);
             console.log("resent password error");
-            showTost(error.response.data.message)
+            toast.error(error.response.data.message)
+            setLoad(false)
         }
     }
   return (
     <>
     
-    <div className="modal-overlay">
+    <div className="modal-overlay pt-8">
       <div ref={modalRef} className="modal-container">
       <div class="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
       <div class="p-4 sm:p-7">
@@ -92,7 +91,8 @@ function CurrentPassword({user_id,setChangepass,setNewpass}) {
                   />
                 </div>
               </div>
-              <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">Submit</button>
+              <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+              >{load?<Spinner/>:"Submit"}</button>
             </div>
           </form>
         </div>
@@ -102,7 +102,7 @@ function CurrentPassword({user_id,setChangepass,setNewpass}) {
     {/* </main>  */}
     </div>
     </div>
-    <Toaster/>
+    
     </>
   )
 }

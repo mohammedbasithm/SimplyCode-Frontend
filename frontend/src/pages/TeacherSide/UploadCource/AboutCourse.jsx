@@ -6,6 +6,7 @@ import PublicAxios from '../../../axios'
 import Spinner from '../../../Component/Spinner/Spinner'
 import ChapterDetails from './ChapterDetails'
 
+
 const AboutCourse = ({id}) => {
     const [courseDetails,setCourseDetails]=useState('')
     const [isModalVisible,setIsModalVisible]=useState(false)
@@ -105,6 +106,26 @@ const AboutCourse = ({id}) => {
         setLoading(false)
       }
     }
+    const handleButton=async(id)=>{
+      
+        try{
+          const response=await PublicAxios.put('/course/course-completed',{id},{
+            headers:{
+              "Content-Type":"application/json"
+            },
+            withCredentials:true,
+          });
+          toast.success(response.data.message)
+          console.log('course completed success');
+          
+        }
+        catch(error){
+          toast.error(error.response.data.error)
+          console.log('somthing problem');
+        }
+      
+    }
+
     console.log(chapterDetails);
   return (
     <>
@@ -130,7 +151,7 @@ const AboutCourse = ({id}) => {
                 </div>
               ))}
               {/* ///////////////// */}
-              <div className="relative py-3 ">
+              {!courseDetails.is_completed && (<div className="relative py-3 ">
                 <button
                   id="dropdownDefaultButton"
                   className="text-green-700 bg-gray-300 hover:text-green-800 transition-colors duration-300 hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-400 font-semibold rounded-lg text-2xl w-96 overflow-hidden px-4 py-2.5 text-center inline-flex items-center justify-center"
@@ -139,7 +160,7 @@ const AboutCourse = ({id}) => {
                 >
                   Add Chapter +
                 </button>
-              </div>
+              </div>)}
               {/* ////////////////// */}
             </div>
           </div>
@@ -162,6 +183,10 @@ const AboutCourse = ({id}) => {
             <span className="font-bold text-lg">Description:{` `} </span>
             <div className="text-justify">{courseDetails.description}</div>
           </div>
+          {!courseDetails.is_completed && <div className='pl-16 pb-4 '>
+          <button onClick={()=>handleButton(courseDetails.id)} className='bg-green-600 p-3 rounded-lg'>Completed</button>
+
+          </div>}
           </div>
           {isModalVisible && (
             <div

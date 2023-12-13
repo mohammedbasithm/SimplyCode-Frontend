@@ -6,13 +6,15 @@ import PublicAxios from '../../../axios';
 import ChapterDetails from '../../TeacherSide/UploadCource/ChapterDetails';
 import toast,{Toaster} from 'react-hot-toast';
 import Navigation from '../../../Component/Navbar/UserNav';
+import { useSelector } from 'react-redux'
 const ChapterCourse = () => {
     const {id}=useParams();
     const[courseDetails,setCourseDetails]=useState('')
     const[chapterDetails,setChapterDetails]=useState('')
     const [selectChapter,setSelectChapter]=useState(null)
     const [modalVisible, setModalVisible] = useState(false);
-    
+    const isAuth=useSelector((state)=>state.user)
+    console.log('isAuth:',isAuth);
     const closeModal = () => {
         setModalVisible(false);
       };
@@ -43,6 +45,9 @@ const ChapterCourse = () => {
     const handleButtonClick=(chapter)=>{
         setSelectChapter(chapter);
         setModalVisible(true);
+    }
+    const handleSubscripe=(id)=>{
+      console.log('subscripe...');
     }
   return (
     <>
@@ -81,6 +86,12 @@ const ChapterCourse = () => {
             />
           </div>
           <div className="p-3 mx-5 w-2/3">
+            <span className="text-xl ">
+              <span className="font-bold">Course Price:{`  ₹`}</span>
+              {courseDetails.price}
+            </span>
+          </div>
+          <div className="p-3 mx-5 w-2/3">
             <span className="text-xl">
               <span className="font-bold">Course Blurb:{` `}</span><br />
               {courseDetails.about}
@@ -91,6 +102,10 @@ const ChapterCourse = () => {
             <span className="font-bold text-lg">Description:{` `} </span>
             <div className="text-justify">{courseDetails.description}</div>
           </div>
+          {!courseDetails.is_subscripe && isAuth.role==='USER' && <div className='pl-16 pb-4 '>
+          <button onClick={()=>handleSubscripe(courseDetails.id)} className='bg-green-600 p-3 rounded-lg'>Subscripe</button>
+
+          </div>}
           </div>
           
           <Toaster />

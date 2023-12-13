@@ -2,12 +2,13 @@ import React, { useState,useRef } from 'react'
 import toast,{Toaster} from 'react-hot-toast'
 import PublicAxios from '../../../axios'
 import { useEffect } from 'react'
+import Spinner from '../../../Component/Spinner/Spinner'
 
 function ChangePassword({user_id,setNewpass}) {
     const [pass1,setPass1]=useState('')
     const [pass2,setPass2]=useState('')
     const modalRef = useRef(null);
-    
+    const[load,setLoad]=useState(false)
     useEffect(() => {
         const handleOutsideClick = (e) => {
           if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -24,16 +25,17 @@ function ChangePassword({user_id,setNewpass}) {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         if(pass1.trim()===''){
-          showTost('please set password')
+          toast.error('please set password')
           return
         }
         if (pass1 !== pass2){
-            showTost('password not match..')
+            toast.error('password not match..')
             return
         }
         
         
         try{
+          setLoad(false)
             const response=await PublicAxios.post('/setnew-password',{
                 password:pass1,
                 user_id:user_id,
@@ -47,11 +49,13 @@ function ChangePassword({user_id,setNewpass}) {
             console.log('sucess changing password');
              toast.success(response.message) 
              setNewpass(false)
+             setLoad(false)
 
             
         }
         catch(error){
-            console.log(error.response.data.message);
+          setLoad(false)
+            toast.error(error.response.data.message);
             console.log("resent password error");
             
         }
@@ -104,7 +108,8 @@ function ChangePassword({user_id,setNewpass}) {
                 </div>
                 
               </div>
-              <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">Reset password</button>
+              <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                {load?<Spinner/>:'Reset password'}</button>
             </div>
           </form>
         </div>
@@ -114,7 +119,7 @@ function ChangePassword({user_id,setNewpass}) {
     {/* </main>  */}
     </div>
     </div>
-    <Toaster/>
+    
     </>
   )
 }

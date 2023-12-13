@@ -12,6 +12,7 @@ import Error from "../Component/ErrorPage/Error";
 import UserProfile from "../pages/UserSide/UserProfile/UserProfile";
 import BackAuth from "../Component/Authorisation/BackAuth";
 import ChapterCourse from "../pages/UserSide/Course/ChapterCourse";
+import SuccessPayments from "../pages/UserSide/UserPayments/SuccessPayments";
 
 function UserRoutes() {
   return (
@@ -29,7 +30,7 @@ function UserRoutes() {
             <Route exact path="/reset-password" element={<ResendPassword/>}></Route>
             <Route path="/userprofile" element={<UserProfile/>}/>
             <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/>
-           
+            <Route exact path="/success" element={<SuccessPayments />} />
             <Route path="/*" element={<Error/>}/>
         </Routes>
     </>
