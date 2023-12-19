@@ -171,7 +171,7 @@ useEffect(() => {
                     
                   </div>
                   <div className='flex justify-between'>
-                    <p className='font-semibold'>My-Courses</p>
+                    <p onClick={()=>navigate('/mycourse')} className='font-semibold'>My-Courses</p>
                     <span>My-Blogs</span>
                   </div>
                 </div>

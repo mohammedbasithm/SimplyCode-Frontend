@@ -13,7 +13,9 @@ import UserProfile from "../pages/UserSide/UserProfile/UserProfile";
 import BackAuth from "../Component/Authorisation/BackAuth";
 import ChapterCourse from "../pages/UserSide/Course/ChapterCourse";
 import SuccessPayments from "../pages/UserSide/UserPayments/SuccessPayments";
-
+import MyCourse from "../pages/UserSide/UserProfile/MyCourse";
+// import ChatPage from "../Component/Chat/ChatPage";
+import Chat from "../Component/Chat/Chat";
 function UserRoutes() {
   return (
     <>
@@ -31,6 +33,8 @@ function UserRoutes() {
             <Route path="/userprofile" element={<UserProfile/>}/>
             <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/>
             <Route exact path="/success" element={<SuccessPayments />} />
+            <Route path="/mycourse" element={<MyCourse/>}/>
+            <Route path="/chat" element={<Chat/>} />
             <Route path="/*" element={<Error/>}/>
         </Routes>
     </>

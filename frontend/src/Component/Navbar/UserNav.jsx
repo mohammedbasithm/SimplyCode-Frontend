@@ -219,7 +219,7 @@ export const Navigation = () => {
                         </li>
                         <li>
                           <Link
-                            to="/"
+                            to={isAuth.role === 'USER' ? "/course" : "/login"}
                             aria-label="Our product"
                             title="Our product"
                             class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -229,7 +229,7 @@ export const Navigation = () => {
                         </li>
                         <li>
                           <Link
-                            href="/aboutus"
+                            to={isAuth.role === 'USER' ? "/aboutus" :"/login"}
                             aria-label="Product pricing"
                             title="Product pricing"
                             class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -239,7 +239,7 @@ export const Navigation = () => {
                         </li>
                         <li>
                           <Link
-                            href="/blog"
+                            to={isAuth.role === 'USER' ? "/blog" :"/login"}
                             aria-label="About us"
                             title="About us"
                             class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -263,7 +263,7 @@ export const Navigation = () => {
                           <li>
                             <Link
                               to="/login"
-                              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                               aria-label="Sign up"
                               title="Sign up"
                             >

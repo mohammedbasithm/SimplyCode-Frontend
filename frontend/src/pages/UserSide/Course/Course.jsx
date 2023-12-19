@@ -7,10 +7,14 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bannerImg from '../../../assets/course_banner_img.webp'
 import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
 
 function Course() {
   const navigate=useNavigate()
-  const[courseData,setCourseData]=useState('')
+  const[courseData,setCourseData]=useState('');
+  const isAuth=useSelector((state)=>state.user)
+  const user_id=isAuth.user_id
+  console.log('user_id:',user_id);
   useEffect(()=>{
     const fetchData=async()=>{
       const response=await PublicAxios.get('/user/fetchcourse');
@@ -20,15 +24,18 @@ function Course() {
     fetchData();
   },[])
 
-  const handlePurches=async()=>{
+  const handlePurches=async(id)=>{
+    console.log('id:',id);
     try{
-      const response=await PublicAxios.post('/stripe/create-checkout-session',{}, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+        const response=await PublicAxios.post('/stripe/create-checkout-session',{id,user_id:user_id}, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:true,
+        });
       toast.success(response.data.message)
       console.log('success');
+      window.location.href = response.data.checkout_session_url;
     }catch(error){
       console.log('somthing issue');
     }
@@ -67,13 +74,13 @@ function Course() {
 {courseData && courseData.map((course) => (
     <div className="p-4 bg-white rounded shadow-md">
       <img
-        src={`http://127.0.0.1:8000/${course.cover_image}`}
+        src={`http://127.0.0.1:8000${course.cover_image}`}
         className="w-full rounded"
         alt="skilling banner"
       />
       <div className="p-4">
         <h6 className="text-xl font-bold">{course.title}</h6>
-        <p className="text-sm">Asitha Vijilesh</p>
+        <p className="text-sm">instructor : {course.instructor_username}</p>
         <div className="flex flex-col">
           <p className="text-xs">Available for</p>
           <p className="text-sm line-through text-gray-500">₹{course.price}</p>
@@ -82,7 +89,7 @@ function Course() {
       </div>
       <div className="flex justify-between p-4">
         <button onClick={()=>navigate(`/user-coursedetails/${course.id}`)} className="bg-white text-blue-500 px-4 py-2 rounded">VIEW DETAILS</button>
-        <button onClick={()=>handlePurches()} className="bg-blue-500 text-white px-4 py-3 rounded-full">BUY NOW</button>
+        <button onClick={()=>handlePurches(course.id)} className="bg-blue-500 text-white px-4 py-3 rounded-full">BUY NOW</button>
       </div>
     </div>))}
   {/* </div> */}

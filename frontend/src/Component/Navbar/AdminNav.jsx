@@ -108,7 +108,7 @@ export const AdminNav = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/admin/course-list"
                   aria-label="About us"
                   title="total course"
                   class="font-medium tracking-wide text-black transition-colors duration-200 hover:text-teal-accent-400"

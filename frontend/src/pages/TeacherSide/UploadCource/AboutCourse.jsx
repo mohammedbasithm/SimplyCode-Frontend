@@ -183,7 +183,7 @@ const AboutCourse = ({id}) => {
             <span className="font-bold text-lg">Description:{` `} </span>
             <div className="text-justify">{courseDetails.description}</div>
           </div>
-          {!courseDetails.is_completed && <div className='pl-16 pb-4 '>
+          {!courseDetails.is_completed &&!courseDetails.is_subscripe && <div className='pl-16 pb-4 '>
           <button onClick={()=>handleButton(courseDetails.id)} className='bg-green-600 p-3 rounded-lg'>Completed</button>
 
           </div>}
