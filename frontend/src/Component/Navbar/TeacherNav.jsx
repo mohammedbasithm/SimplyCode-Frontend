@@ -66,15 +66,16 @@ const TeacherNav =()=> {
                   <Link to={'/teacher/uploadclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Upload Class</Link>
                   <Link to={'/teacher/runningclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Running Class</Link>
                   <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
-                  <Link to={'/teacher/teacherpayments'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Payment</Link>
+                  <Link to={'/teacher/teacherblog'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Blog</Link>
                 </div>
-              </div>
-              <div className='md:flex md:justify-between space-x-7'>
+              
+              <div className='pl-6 flex items-center justify-between space-x-7'>
                   <Link to={'/teacher/teacherprofile'} className='text-white text-medium cursor-pointer py-1'>
                    {name}
                   </Link>
                   <span onClick={logoutHandle} className='hidden md:block bg-teal-500 px-3 py-1 text-custom-btn-color font-medium cursor-pointer  hvr-bounce-to-right'>Logout</span>
                 </div>
+            </div>
             </div>
             <div className="-mr-2 flex md:hidden">
               <button
@@ -137,11 +138,11 @@ const TeacherNav =()=> {
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               
                 <div className=" flex flex-col gap-3 mb-3">
-                  <p className='text-white text-medium cursor-pointer py-1'>Dash Board</p>
-                  <p className='text-white text-medium cursor-pointer py-1'>Upload Class</p>
-                  <p className='text-white text-medium cursor-pointer py-1'>Runnig Class</p>
-                  <p className='text-white text-medium cursor-pointer py-1'>Chats</p>
-                  <p className='text-white text-medium cursor-pointer py-1'>Payment</p>
+                <Link to={'/teacher/'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Dash Board</Link>
+                  <Link to={'/teacher/uploadclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Upload Class</Link>
+                  <Link to={'/teacher/runningclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Running Class</Link>
+                  <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
+                  <Link to={'/teacher/teacherpayments'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Payment</Link>
                 </div>
               
                 

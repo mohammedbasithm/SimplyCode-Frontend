@@ -39,14 +39,14 @@ export const Navigation = () => {
       
     
     return (
-      <div class="bg-indigo-100 fixed top-0 w-full z-10 shadow-md">
-        <div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-          <div class="relative flex items-center justify-between">
+      <div className="bg-indigo-100 fixed top-0 w-full z-10 shadow-md">
+        <div className="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+          <div className="relative flex items-center justify-between">
             <Link
               to="/"
               aria-label="Company"
               title="Company"
-              class="inline-flex items-center"
+              className="inline-flex items-center"
             >
               <svg
                 class="w-8 text-blue-900"
@@ -63,17 +63,17 @@ export const Navigation = () => {
                 <rect x="14" y="1" width="7" height="6" />
                 <rect x="14" y="11" width="7" height="12" />
               </svg>
-              <span class="ml-2 text-xl font-bold tracking-wide text-blue-900 uppercase">
+              <span className="ml-2 text-xl font-bold tracking-wide text-blue-900 uppercase">
                 Simply Code
               </span>
             </Link>
-            <ul class="flex items-center hidden space-x-8 lg:flex ">
+            <ul className="flex items-center hidden space-x-8 lg:flex ">
               <li>
                 <Link
                   to='/'
                   aria-label="Our product"
                   title="Our product"
-                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
+                  className="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Home
                 </Link>
@@ -83,7 +83,7 @@ export const Navigation = () => {
                   to={isAuth.role === 'USER' ? "/course" : "/login"}
                   aria-label="Our product"
                   title="Our product"
-                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
+                  className="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Course
                 </Link>
@@ -93,7 +93,7 @@ export const Navigation = () => {
                   to={isAuth.role === 'USER' ? "/aboutus" :"/login"}
                   aria-label="Product pricing"
                   title="Product pricing"
-                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
+                  className="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   About Us
                 </Link>
@@ -103,38 +103,51 @@ export const Navigation = () => {
                   to={isAuth.role === 'USER' ? "/blog" :"/login"}
                   aria-label="About us"
                   title="About us"
-                  class="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
+                  className="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
                   Blog
                 </Link>
               </li>
-              
-            </ul>
-            {logout?
-            (<div>
-              <Link className="hvr-underline-from-left mr-5 text-blue-600" to="/userprofile">
-              {name}
-              </Link>
-              <button
-              onClick={logoutHandle}
-              className='hvr-bounce-to-right inline-flex items-center bg-gray-300 shadow-sm border-0 py-1 px-3 mt-4 md:mt-0'
-              
-              >logout</button>
-            </div>
-            
-            ):(<ul class="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <Link
-                  to="/login"
-                  class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-blue-600 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                  aria-label="Sign up"
-                  title="login"
+                  to={isAuth.role === 'USER' ? "/chat" :"/login"}
+                  aria-label="About us"
+                  title="About us"
+                  className="hvr-underline-from-left font-medium tracking-wide text-blue-600 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Sign In
+                  Community
                 </Link>
-                
               </li>
-            </ul>)}
+              
+            </ul>
+            {logout ? (
+        <div className="hidden lg:block">
+          {/* Show only on larger screens */}
+          <Link className="hvr-underline-from-left mr-5 text-blue-600" to="/userprofile">
+            {name}
+          </Link>
+          <button
+            onClick={logoutHandle}
+            className="hvr-bounce-to-right inline-flex items-center bg-gray-300 shadow-sm border-0 py-1 px-3 mt-4 md:mt-0"
+          >
+            logout
+          </button>
+        </div>
+      ) : (
+        <ul className="flex items-center hidden space-x-8 lg:flex">
+          {/* Show only on larger screens */}
+          <li>
+            <Link
+              to="/login"
+              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-blue-600 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+              aria-label="Sign up"
+              title="login"
+            >
+              Sign In
+            </Link>
+          </li>
+        </ul>
+      )}
             
             <div class="lg:hidden">
               <button
@@ -247,6 +260,16 @@ export const Navigation = () => {
                             Blog
                           </Link>
                         </li>
+                        <li>
+                <Link
+                  to={isAuth.role === 'USER' ? "/chat" :"/login"}
+                  aria-label="About us"
+                  title="About us"
+                  className="hvr-underline-from-left font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400"
+                >
+                  Community
+                </Link>
+              </li>
                         {logout?
                         (<div>
                           <Link className="hvr-underline-from-left mr-5 text-black" to="/userprofile">
@@ -259,19 +282,14 @@ export const Navigation = () => {
                           >logout</button>
                         </div>
                         
-                        ):(<ul class="flex items-center hidden space-x-8 lg:flex">
-                          <li>
-                            <Link
-                              to="/login"
-                              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                              aria-label="Sign up"
-                              title="Sign up"
-                            >
-                              Sign In
-                            </Link>
-                            
-                          </li>
-                        </ul>)}
+                        ):(<div className="lg:hidden">
+                        <Link
+                          to="/login"
+                          className="font-medium tracking-wide text-blue-600 transition duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Sign In
+                        </Link>
+                      </div>)}
                       </ul>
                     </nav>
                   </div>

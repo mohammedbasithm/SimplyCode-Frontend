@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Spinner from '../../../Component/Spinner/Spinner';
 import PublicAxios from '../../../axios';
 import { useEffect } from 'react';
-import { Await } from 'react-router-dom';
+
 
 const AddCourse = ({toggleModal,setFetchCourse}) => {
     const[loading,setLoading]=useState(false)
@@ -115,7 +115,7 @@ const AddCourse = ({toggleModal,setFetchCourse}) => {
             // toast.error(error.response.data.error)
           }
     }
-    
+    console.log('input:',input);
   return (
     <>
       <div

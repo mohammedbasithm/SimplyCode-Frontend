@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import PublicAxios from '../../../axios'
 import Spinner from '../../../Component/Spinner/Spinner'
 import ChapterDetails from './ChapterDetails'
-
+import Checkbox from '@mui/material/Checkbox';
 
 const AboutCourse = ({id}) => {
     const [courseDetails,setCourseDetails]=useState('')
@@ -15,12 +15,22 @@ const AboutCourse = ({id}) => {
     const [selectChapter,setSelectChapter]=useState(null)
     const [modalVisible, setModalVisible] = useState(false);
     const [newChapterAdded, setNewChapterAdded] = useState(false);
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const [input,setInput]=useState({
         'chapterName':'',
         'description':'',
         'videos':'',
+        'is_free':false,
         'course_id':id,
     })
+    const handleCheckbox=(e)=>{
+      const { name, checked } = e.target;
+      setInput((prev) => ({
+        ...prev,
+        [name]: checked,
+      }));
+    }
+    
     const toggleModal=()=>{
         setIsModalVisible((prev)=>!prev)
     }
@@ -111,7 +121,7 @@ const AboutCourse = ({id}) => {
         try{
           const response=await PublicAxios.put('/course/course-completed',{id},{
             headers:{
-              "Content-Type":"application/json"
+              "Content-Type":"application/Json"
             },
             withCredentials:true,
           });
@@ -125,7 +135,7 @@ const AboutCourse = ({id}) => {
         }
       
     }
-
+    console.log('input:',input);
     console.log(chapterDetails);
   return (
     <>
@@ -167,7 +177,7 @@ const AboutCourse = ({id}) => {
           <div className='bg-gray-400 '>
           <div className="flex flex-col ml-3 p-5">
             <img
-              src={`http://127.0.0.1:8000/${courseDetails.cover_image}`}
+              src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
               alt="thumbnail"
               className=" w-1/4"
             />
@@ -278,6 +288,19 @@ const AboutCourse = ({id}) => {
                           onChange={handleFile}
                         />
                       </div>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <input
+                          type="checkbox"
+                          id="freeCourseCheckbox"
+                          name="is_free"
+                          onClick={handleCheckbox}
+                          style={{ transform: 'scale(1)' }}
+                        />
+                        <label htmlFor="freeCourseCheckbox" style={{ fontSize: '1em', marginLeft: '5px' }}>
+                          Free Course
+                        </label>
+                      </div>
+
                     </div>
                     <div className="flex justify-center items-center">
                       <button

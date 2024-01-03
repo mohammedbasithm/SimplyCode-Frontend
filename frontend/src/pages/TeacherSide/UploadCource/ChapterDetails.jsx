@@ -20,7 +20,7 @@ const ChapterDetails = ({chapter,onClose}) => {
             {chapter.chapter}
           </h1>
           <video width="720" height="480" controls>
-            <source src={`http://127.0.0.1:8000/${chapter.videos}`} type="video/mp4" />
+            <source src={`http://127.0.0.1:8000${chapter.videos}`} type="video/mp4" />
             <h1>Your browser does not support the video tag.</h1>
           </video>
           <div className="pt-5 w-2/3">

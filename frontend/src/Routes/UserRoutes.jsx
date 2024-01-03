@@ -16,6 +16,8 @@ import SuccessPayments from "../pages/UserSide/UserPayments/SuccessPayments";
 import MyCourse from "../pages/UserSide/UserProfile/MyCourse";
 // import ChatPage from "../Component/Chat/ChatPage";
 import Chat from "../Component/Chat/Chat";
+import CourseDetails from "../pages/UserSide/Course/CourseDetails";
+import BlogDetailsUser from "../pages/UserSide/Blog/BlogDetailsUser";
 function UserRoutes() {
   return (
     <>
@@ -31,10 +33,12 @@ function UserRoutes() {
             <Route exact path="/forgot-password" element={<ForgetPassword/>}></Route>
             <Route exact path="/reset-password" element={<ResendPassword/>}></Route>
             <Route path="/userprofile" element={<UserProfile/>}/>
-            <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/>
+            {/* <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/> */}
+            <Route path="/user-coursedetails/:id" element={<CourseDetails/>}/>
             <Route exact path="/success" element={<SuccessPayments />} />
             <Route path="/mycourse" element={<MyCourse/>}/>
             <Route path="/chat" element={<Chat/>} />
+            <Route path="blogdetails/:id" element={<BlogDetailsUser/>} />
             <Route path="/*" element={<Error/>}/>
         </Routes>
     </>

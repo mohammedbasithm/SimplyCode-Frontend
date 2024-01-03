@@ -13,6 +13,7 @@ const ChapterCourse = () => {
     const[chapterDetails,setChapterDetails]=useState('')
     const [selectChapter,setSelectChapter]=useState(null)
     const [modalVisible, setModalVisible] = useState(false);
+    const [paymentsDetails,setPaymentDetails]=useState('')
     const isAuth=useSelector((state)=>state.user)
     console.log('isAuth:',isAuth);
     const closeModal = () => {
@@ -40,6 +41,28 @@ const ChapterCourse = () => {
             }
         }
         chapterFetchdata();
+
+        const fetchPaymentData=async()=>{
+          try{
+            console.log('course_id:',id,'user_id:',isAuth.user_id);
+            const response = await PublicAxios.get('/course/fetchpaymentsData', {
+              params: {
+                course_id: id,
+                user_id: isAuth.user_id,
+              },
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
+            });
+            setPaymentDetails(response.data)
+            console.log('succes the fetch payment data');
+          }
+          catch(error){
+            console.log('faild the fetching payment data');
+          }
+        }
+        fetchPaymentData();
        
     },[]);
     const handleButtonClick=(chapter)=>{
@@ -80,7 +103,7 @@ const ChapterCourse = () => {
           <div className='bg-gray-400 '>
           <div className="flex flex-col ml-3 p-5">
             <img
-              src={`http://127.0.0.1:8000/${courseDetails.cover_image}`}
+              src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
               alt="thumbnail"
               className=" w-1/4"
             />
@@ -111,7 +134,7 @@ const ChapterCourse = () => {
           <Toaster />
         </div>
       )}
-      {modalVisible && (selectChapter && <ChapterDetails onClose={closeModal} chapter={selectChapter}/>)}
+      {modalVisible && courseDetails.is_subscripe && isAuth.role==='USER' && (selectChapter && <ChapterDetails onClose={closeModal} chapter={selectChapter}/>)}
     </>
   )
 }

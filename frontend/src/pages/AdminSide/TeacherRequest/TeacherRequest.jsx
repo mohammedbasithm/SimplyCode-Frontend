@@ -83,7 +83,7 @@ const TeacherRequest = () => {
       setSumission(true)
     }
     catch(error){
-      toast.error(error.response.error)
+      toast.error(error.error)
       console.log('teacher rejected faild');
     }
   }
@@ -185,7 +185,7 @@ function formatCurrentDate(date) {
                    </td>
                    <td className="px-6 py-4 whitespace-nowrap text-center items-center">
                     <img
-                      src={`http://127.0.0.1:8000/${teacher.id_proof}`}
+                      src={`http://127.0.0.1:8000${teacher.id_proof}`}
                       
                       alt="ID Proof"
                       className="h-8 w-8 cursor-pointer"

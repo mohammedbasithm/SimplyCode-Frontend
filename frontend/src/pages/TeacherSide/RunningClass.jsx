@@ -44,17 +44,17 @@ function RunningClass() {
         {/* <!-- button --> */}
         <div class="flex items-start justify-between mb-4 mt-16">
             <span className="text-3xl font-bold">Classes: </span>
-            <button onClick={toggleModal} type="button" class='flex max-w-sm bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 focus:outline-none text-white text-sm uppercase font-bold shadow-md rounded-full p-3'>
+            {/* <button onClick={toggleModal} type="button" class='flex max-w-sm bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 focus:outline-none text-white text-sm uppercase font-bold shadow-md rounded-full p-3'>
                 <div class="flex sm:flex-cols-12 gap-2 ">
                     <div class="col-span-1">
                         <span class="text-xl">+</span>
                     </div>
                     <div class="col-span-2 pt-2">Add Course</div>
                 </div>    
-            </button>
+            </button> */}
         </div>
         {list&&<ListCourse courses={course}/>}
-        {isModalVisible&&<AddCourse setFetchCourse={setFetchCourse}  toggleModal={toggleModal}/>}
+        {/* {isModalVisible&&<AddCourse setFetchCourse={setFetchCourse}  toggleModal={toggleModal}/>} */}
     </div>
 
     </>

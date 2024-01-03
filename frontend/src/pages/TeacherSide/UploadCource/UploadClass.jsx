@@ -14,6 +14,7 @@ const UploadClass=()=> {
   const[course,setCourse]=useState('')
   const[list,setList]=useState(false)
   const[fetchCourse,setFetchCourse]=useState(false)
+  const[teacherData,setTeacherData]=useState('')
   useEffect(()=>{
     const courseData=async()=>{
       try{
@@ -34,10 +35,29 @@ const UploadClass=()=> {
     }
     courseData();
     setFetchCourse(false)
+    const teacherData=async()=>{
+      try{
+      const response=await PublicAxios.get('/teacher/teacherData',{
+        params:{
+          teacherId:user_id
+        },
+        headers:{
+          "Content-Type":"application/Json"
+        },
+        withCredentials:true
+      })
+      setTeacherData(response.data)
+    }
+      catch(error){
+        console.log(error.error);
+      }
+    }
+    teacherData();
   },[fetchCourse]);
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
   };
+  console.log('teacherData;',teacherData);
   return (
     <div className='bg-gray-400 h-screen'>
         <TeacherNav />
@@ -53,8 +73,8 @@ const UploadClass=()=> {
                 </div>    
             </button>
         </div>
-        {list&&<ListCourse courses={course}/>}
-        {isModalVisible&&<AddCourse setFetchCourse={setFetchCourse}  toggleModal={toggleModal}/>}
+        {teacherData.approvel&&list&&<ListCourse courses={course}/>}
+        {teacherData.approvel&&isModalVisible&&<AddCourse setFetchCourse={setFetchCourse}  toggleModal={toggleModal}/>}
     </div>
   )
 }

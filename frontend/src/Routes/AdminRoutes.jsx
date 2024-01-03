@@ -7,6 +7,8 @@ import Error from '../Component/ErrorPage/Error'
 import TeacherRequest from '../pages/AdminSide/TeacherRequest/TeacherRequest'
 import ProfileCard from '../pages/AdminSide/TeacherList/TeacherList'
 import TeacherProfile from '../pages/AdminSide/TeacherList/TeacherProfile/TeacherProfile'
+import Allcourse from '../pages/AdminSide/AllCourse/Allcourse'
+import CourseDetailsAdmin from '../pages/AdminSide/AllCourse/CourseDetailsAdmin'
 function AdminRoutes() {
   return (
     <>
@@ -17,6 +19,8 @@ function AdminRoutes() {
             <Route path='/teacher-request' element={<TeacherRequest/>}/>
             <Route path='/teacher-list' element={<ProfileCard/>}/>
             <Route path='/teacher-profile/:id' element={<TeacherProfile/>} />
+            <Route path='/allcourse' element={<Allcourse/>} />
+            <Route path='/coursedetails/:id' element={<CourseDetailsAdmin/>} />
             <Route path='/*' element={<Error/>}/>
         </Route>
 
