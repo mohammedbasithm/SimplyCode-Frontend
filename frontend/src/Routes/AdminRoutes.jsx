@@ -13,15 +13,15 @@ function AdminRoutes() {
   return (
     <>
       <Routes>
-        <Route element={<AdminAuth/>}>
-            <Route path='/' element={<Dashboard/>}/>
-            <Route path='/students-list' element={<Studentslist/>}/>
-            <Route path='/teacher-request' element={<TeacherRequest/>}/>
-            <Route path='/teacher-list' element={<ProfileCard/>}/>
-            <Route path='/teacher-profile/:id' element={<TeacherProfile/>} />
-            <Route path='/allcourse' element={<Allcourse/>} />
-            <Route path='/coursedetails/:id' element={<CourseDetailsAdmin/>} />
-            <Route path='/*' element={<Error/>}/>
+        <Route element={<AdminAuth />}>
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/students-list' element={<Studentslist />} />
+          <Route path='/teacher-request' element={<TeacherRequest />} />
+          <Route path='/teacher-list' element={<ProfileCard />} />
+          <Route path='/teacher-profile/:id' element={<TeacherProfile />} />
+          <Route path='/allcourse' element={<Allcourse />} />
+          <Route path='/coursedetails/:id' element={<CourseDetailsAdmin />} />
+          <Route path='/*' element={<Error />} />
         </Route>
 
       </Routes>

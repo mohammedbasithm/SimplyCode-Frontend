@@ -4,12 +4,11 @@ import { useParams } from 'react-router-dom'
 import AboutCourse from './AboutCourse';
 
 const CourseDetails = () => {
-    const {id}=useParams();
-    console.log('--------->',id);
+  const { id } = useParams();
   return (
     <>
-        <TeacherNav/>
-        <AboutCourse id={id}/>
+      <TeacherNav />
+      <AboutCourse id={id} />
     </>
   )
 }

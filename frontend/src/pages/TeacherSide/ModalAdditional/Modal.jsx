@@ -9,7 +9,6 @@ const Modal = ({ isOpen, onClose, additionalInfo }) => {
             <span className="close-btn" onClick={onClose}>
               &times;
             </span>
-            {/* Additional Information */}
             <div>{additionalInfo}</div>
           </div>
         </div>

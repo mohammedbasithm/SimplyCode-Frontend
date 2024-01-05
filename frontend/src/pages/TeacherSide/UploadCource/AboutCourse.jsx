@@ -1,164 +1,189 @@
 import React from 'react'
-import toast,{Toaster} from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import PublicAxios from '../../../axios'
 import Spinner from '../../../Component/Spinner/Spinner'
 import ChapterDetails from './ChapterDetails'
-import Checkbox from '@mui/material/Checkbox';
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import EditCourse from './EditCourse'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import DeleteModal from '../../../Component/Modal/DeleteModal'
 
-const AboutCourse = ({id}) => {
-    const [courseDetails,setCourseDetails]=useState('')
-    const [isModalVisible,setIsModalVisible]=useState(false)
-    const [loading,setLoading]=useState(false)
-    const [chapterDetails,setChapterDetails]=useState('')
-    const [selectChapter,setSelectChapter]=useState(null)
-    const [modalVisible, setModalVisible] = useState(false);
-    const [newChapterAdded, setNewChapterAdded] = useState(false);
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-    const [input,setInput]=useState({
-        'chapterName':'',
-        'description':'',
-        'videos':'',
-        'is_free':false,
-        'course_id':id,
-    })
-    const handleCheckbox=(e)=>{
-      const { name, checked } = e.target;
+const AboutCourse = ({ id }) => {
+  const navigate = useNavigate()
+  const userId = useSelector((state) => state.user.user_id)
+  const [courseDetails, setCourseDetails] = useState('')
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [chapterDetails, setChapterDetails] = useState('')
+  const [selectChapter, setSelectChapter] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newChapterAdded, setNewChapterAdded] = useState(false);
+  const [editCourse, setEditCourse] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [input, setInput] = useState({
+    'chapterName': '',
+    'description': '',
+    'videos': '',
+    'is_free': false,
+    'course_id': id,
+  })
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const handleCheckbox = (e) => {
+    const { name, checked } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+  }
+
+  const toggleModal = () => {
+    setIsModalVisible((prev) => !prev)
+  }
+  const handleButtonClick = (chapter) => {
+    setSelectChapter(chapter);
+    setModalVisible(true);
+  }
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const response = await PublicAxios.get('/course/coursedetails', { params: { id } });
+        setCourseDetails(response.data)
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    fetchdata();
+    const chapterFetchdata = async () => {
+      try {
+        const response = await PublicAxios.get('/course/fetchchapter', { params: { courseId: id } });
+        setChapterDetails(response.data);
+      } catch (error) {
+        console.log('fetching chapter faild', error);
+      }
+    }
+    chapterFetchdata();
+    setNewChapterAdded(false);
+  }, [id, newChapterAdded]);
+  const handlechange = (e) => {
+    setInput((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  const isValidFileUpload = (file) => {
+    const validExtensions = ["mkv", "mp4"];
+    const fileExtension = file.type.split("/")[1];
+    return validExtensions.includes(fileExtension);
+  };
+  const handleFile = (e) => {
+    if (isValidFileUpload(e.target.files[0])) {
       setInput((prev) => ({
         ...prev,
-        [name]: checked,
+        videos: e.target.files[0]
       }));
+    } else {
+      toast.error("Invalid File Format");
+      return;
     }
-    
-    const toggleModal=()=>{
-        setIsModalVisible((prev)=>!prev)
+  };
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    if (
+      input.chapterName.trim() === '' ||
+      input.description.trim() === ''
+    ) {
+      toast.error('fill the form');
+      return;
     }
-    const handleButtonClick=(chapter)=>{
-        setSelectChapter(chapter);
-        setModalVisible(true);
+    try {
+      const response = await PublicAxios.post('/course/addchapter', input, {
+        headers: {
+          "Content-Type": 'multipart/form-data',
+        },
+        withCredentials: true,
+      });
+      toast.success(response.data.message);
+      setNewChapterAdded(true);
+      setIsModalVisible(false)
+      setLoading(false)
     }
-    const closeModal = () => {
-        setModalVisible(false);
-      };
-    useEffect(()=>{
-        const fetchdata=async()=>{
-            try{
-                const response=await PublicAxios.get('/course/coursedetails',{params: { id } });
-                setCourseDetails(response.data)
-                console.log('fetching data success');
-            }
-            catch(error){
-                console.log(error.response.data.error   );
-            }
-        }
-        fetchdata();
-        const chapterFetchdata=async()=>{
-            try{
-                const response=await PublicAxios.get('/course/fetchchapter',{params:{id}});
-                setChapterDetails(response.data);
-                console.log("success the fetching chapter");
-            }catch(error){
-                console.log('fetching chapter faild');
-            }
-        }
-        chapterFetchdata();
-        setNewChapterAdded(false);
-    },[id,newChapterAdded]);
-    const handlechange=(e)=>{
-        setInput((prev)=>({
-            ...prev,
-            [e.target.name]:e.target.value,     
-        }));
+    catch (error) {
+      toast.error(error.response.data.error);
+      setLoading(false)
     }
-    const isValidFileUpload = (file) => {
-        const validExtensions = ["mkv", "mp4"];
-        const fileExtension = file.type.split("/")[1];
-        return validExtensions.includes(fileExtension);
-      };
-      const handleFile = (e) => {
-        if (isValidFileUpload(e.target.files[0])) {
-          setInput((prev)=>({
-            ...prev,
-            videos:e.target.files[0]
-          }));
-        } else {
-          toast.error("Invalid File Format");
-          return;
-        }
-      };
-      const handleCreate=async(e)=>{
-        e.preventDefault();
-        console.log("handle create:",input);
-        setLoading(true)
-        if(
-            input.chapterName.trim()===''||
-            input.description.trim()===''
-        ){
-            toast.error('fill the form');
-            return;
-        }
-        try{
-        const response=await PublicAxios.post('/course/addchapter',input,{
-            headers:{
-                "Content-Type":'multipart/form-data',
-            },
-            withCredentials:true,
-        });
-        console.log(response.data.message);
-        toast.success(response.data.message);
-        setNewChapterAdded(true);
-        setLoading(false)
-      }
-      catch(error){
-        console.log('add chapter faild');
-        toast.error(error.response.data.error);
-        setLoading(false)
-      }
+  }
+  const handleButton = async (id) => {
+
+    try {
+      const response = await PublicAxios.put('/course/course-completed', { id }, {
+        headers: {
+          "Content-Type": "application/Json"
+        },
+        withCredentials: true,
+      });
+      toast.success(response.data.message)
+      setNewChapterAdded(true);
+
     }
-    const handleButton=async(id)=>{
-      
-        try{
-          const response=await PublicAxios.put('/course/course-completed',{id},{
-            headers:{
-              "Content-Type":"application/Json"
-            },
-            withCredentials:true,
-          });
-          toast.success(response.data.message)
-          console.log('course completed success');
-          
-        }
-        catch(error){
-          toast.error(error.response.data.error)
-          console.log('somthing problem');
-        }
-      
+    catch (error) {
+      toast.error(error.response.data.error)
     }
-    console.log('input:',input);
-    console.log(chapterDetails);
+
+  }
+  const handleEditCourse = () => {
+    setEditCourse((prev) => !prev)
+  }
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await PublicAxios.delete('/course/course-delete', {
+        params: { courseId: id, userId }
+      })
+      toast.success(response.data.message, { duration: 3000 })
+      setTimeout(() => {
+        navigate('/teacher/uploadclass')
+      }, 1000);
+    } catch (error) {
+      toast.error(error)
+    }
+  }
   return (
     <>
       {courseDetails && (
         <div className="pt-20 ">
-          <div className="flex justify-between ">
-            <span className="text-2xl font-bold">
-              {courseDetails.title}
-              {` `}:
-            </span>
+          <div className="flex justify-between items-center">
+            <span className="text-2xl font-bold">{courseDetails.title}:</span>
+            <div className="flex items-center space-x-2">
+              {!courseDetails.is_completed && (
+                <MdDelete onClick={handleToggleModal} color="red" fontSize="2em" className="cursor-pointer" />
+              )}
+              <FaEdit onClick={handleEditCourse} color="blue" fontSize="2em" className="cursor-pointer" />
+            </div>
             <div className="absolute top-32 right-3 ">
               {/* //////////////////// */}
               {chapterDetails && chapterDetails.map((chapter) => (
-                <div className="relative py-3" key={chapter.id}>
+                <div className=" relative py-3 flex items-center" key={chapter.id}>
                   <button
                     id="dropdownDefaultButton"
-                    onClick={()=>handleButtonClick(chapter)}
+                    onClick={() => handleButtonClick(chapter)}
                     className="text-gray-600 bg-gray-300 hover:text-gray-600 transition-colors duration-300 hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-400 font-semibold rounded-lg text-xl w-96 overflow-hidden px-2 py-2.5 text-center inline-flex items-center justify-center"
                     type="button"
                   >
                     {chapter.chapter}
                   </button>
+                  {!courseDetails.is_completed && (<MdDelete onClick={''} color='red' fontSize='2em' className="mr-2" />)}
                 </div>
+
               ))}
               {/* ///////////////// */}
               {!courseDetails.is_completed && (<div className="relative py-3 ">
@@ -175,28 +200,28 @@ const AboutCourse = ({id}) => {
             </div>
           </div>
           <div className='bg-gray-400 '>
-          <div className="flex flex-col ml-3 p-5">
-            <img
-              src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
-              alt="thumbnail"
-              className=" w-1/4"
-            />
-          </div>
-          <div className="p-3 mx-5 w-2/3">
-            <span className="text-xl">
-              <span className="font-bold">Course Blurb:{` `}</span><br />
-              {courseDetails.about}
-            </span>
-          </div>
+            <div className="flex flex-col ml-3 p-5">
+              <img
+                src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
+                alt="thumbnail"
+                className=" w-1/4"
+              />
+            </div>
+            <div className="p-3 mx-5 w-2/3">
+              <span className="text-xl">
+                <span className="font-bold">Course Blurb:{` `}</span><br />
+                {courseDetails.about}
+              </span>
+            </div>
 
-          <div className="p-3 mx-5 w-2/3">
-            <span className="font-bold text-lg">Description:{` `} </span>
-            <div className="text-justify">{courseDetails.description}</div>
-          </div>
-          {!courseDetails.is_completed &&!courseDetails.is_subscripe && <div className='pl-16 pb-4 '>
-          <button onClick={()=>handleButton(courseDetails.id)} className='bg-green-600 p-3 rounded-lg'>Completed</button>
+            <div className="p-3 mx-5 w-2/3">
+              <span className="font-bold text-lg">Description:{` `} </span>
+              <div className="text-justify">{courseDetails.description}</div>
+            </div>
+            {!courseDetails.is_completed && !courseDetails.is_subscripe && <div className='pl-16 pb-4 '>
+              <button onClick={() => handleButton(courseDetails.id)} className='bg-green-600 p-3 rounded-lg'>Completed</button>
 
-          </div>}
+            </div>}
           </div>
           {isModalVisible && (
             <div
@@ -271,7 +296,7 @@ const AboutCourse = ({id}) => {
                           required=""
                         />
                       </div>
-                      
+
                       <div className="col-span-2">
                         <label
                           htmlFor="formFileLg"
@@ -307,7 +332,7 @@ const AboutCourse = ({id}) => {
                         type="submit"
                         className="text-white inline-flex items-center bg-blue-400 hover:bg-blue-500 hover:text-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                       >
-                        Submit{loading && <Spinner/>}
+                        Submit{loading && <Spinner />}
                       </button>
                     </div>
                   </form>
@@ -315,10 +340,12 @@ const AboutCourse = ({id}) => {
               </div>
             </div>
           )}
+          {editCourse && <EditCourse setNewChapterAdded={setNewChapterAdded} handleEditCourse={handleEditCourse} courseDetails={courseDetails} />}
           <Toaster />
+          <DeleteModal isOpen={isModalOpen} onClose={handleToggleModal} onConfirm={handleConfirmDelete} />
         </div>
       )}
-      {modalVisible && (selectChapter && <ChapterDetails onClose={closeModal} chapter={selectChapter}/>)}
+      {modalVisible && (selectChapter && <ChapterDetails onClose={closeModal} chapter={selectChapter} />)}
     </>
   )
 }

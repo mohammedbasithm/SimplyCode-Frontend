@@ -21,26 +21,25 @@ import BlogDetailsUser from "../pages/UserSide/Blog/BlogDetailsUser";
 function UserRoutes() {
   return (
     <>
-        <Routes>
-            <Route exact path="/" element={<Home/>}></Route>
-            <Route element={<BackAuth/>}>
-              <Route exact path="/login" element={<SignIn/>}></Route>
-            </Route>
-            <Route exact path="/signup" element={<SignUp/>}></Route>
-            <Route exact path="/aboutus" element={<AboutUs/>}></Route>
-            <Route exact path="/blog" element={<Blog/>}></Route>
-            <Route exact path="/course" element={<Course/>}></Route>
-            <Route exact path="/forgot-password" element={<ForgetPassword/>}></Route>
-            <Route exact path="/reset-password" element={<ResendPassword/>}></Route>
-            <Route path="/userprofile" element={<UserProfile/>}/>
-            {/* <Route path="/user-coursedetails/:id" element={<ChapterCourse/>}/> */}
-            <Route path="/user-coursedetails/:id" element={<CourseDetails/>}/>
-            <Route exact path="/success" element={<SuccessPayments />} />
-            <Route path="/mycourse" element={<MyCourse/>}/>
-            <Route path="/chat" element={<Chat/>} />
-            <Route path="blogdetails/:id" element={<BlogDetailsUser/>} />
-            <Route path="/*" element={<Error/>}/>
-        </Routes>
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route element={<BackAuth />}>
+          <Route exact path="/login" element={<SignIn />}></Route>
+        </Route>
+        <Route exact path="/signup" element={<SignUp />}></Route>
+        <Route exact path="/aboutus" element={<AboutUs />}></Route>
+        <Route exact path="/blog" element={<Blog />}></Route>
+        <Route exact path="/course" element={<Course />}></Route>
+        <Route exact path="/forgot-password" element={<ForgetPassword />}></Route>
+        <Route exact path="/reset-password" element={<ResendPassword />}></Route>
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/user-coursedetails/:id" element={<CourseDetails />} />
+        <Route exact path="/success" element={<SuccessPayments />} />
+        <Route path="/mycourse" element={<MyCourse />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="blogdetails/:id" element={<BlogDetailsUser />} />
+        <Route path="/*" element={<Error />} />
+      </Routes>
     </>
   )
 }

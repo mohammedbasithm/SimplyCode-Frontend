@@ -1,26 +1,30 @@
-import React from 'react'
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import Spinner from '../../../Component/Spinner/Spinner';
-import PublicAxios from '../../../axios';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import PublicAxios from '../../../axios'
+import Spinner from '../../../Component/Spinner/Spinner'
 
-
-const AddCourse = ({ toggleModal, setFetchCourse }) => {
+const EditCourse = ({ handleEditCourse, courseDetails, setNewChapterAdded }) => {
   const [loading, setLoading] = useState(false)
-  const [categories, setCategories] = useState([])
-  const isAuth = useSelector((state) => state.user)
+  const [categories, setCategories] = useState('')
+  const userId = useSelector((state) => state.user.user_id)
+  const [selectedFile, setSelectedFile] = useState(null);
+  const slicedImagePath = courseDetails.cover_image.split("/media/")[1];
 
   const [input, setInput] = useState({
-    coursename: '',
-    price: '',
-    category: '',
-    description: '',
-    about: '',
-    coverimage: '',
-    user_id: isAuth.user_id,
+    coursename: courseDetails.title,
+    price: courseDetails.price,
+    category: courseDetails.category.category,
+    description: courseDetails.description,
+    about: courseDetails.about,
+    coverimage: slicedImagePath,
+    user_id: userId,
+    courseId: courseDetails.id
   });
+  useEffect(() => {
+    setSelectedFile(courseDetails.cover_image)
+  }, [])
   useEffect(() => {
     const CatData = async () => {
       const response = await PublicAxios.get('/course/category', {
@@ -36,18 +40,21 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
   }, [])
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setInput((prev) => ({
       ...prev,
-      [e.target.name]: e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value,
-    }));
+      [name]: value,
+    }))
   }
   const handleFileImage = (e) => {
+    const file = e.target.files[0];
     setInput((prev) => ({
       ...prev,
-      coverimage: e.target.files[0],
-    }));
-  }
-  const handleCreate = async (e) => {
+      coverimage: file
+    }))
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -93,20 +100,20 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
     }
     try {
       setLoading(true);
-      const response = await PublicAxios.post('/course/addcourse', input, {
+      const response = await PublicAxios.put('/course/editcourse', input, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Make sure to set the correct content type
+          'Content-Type': 'multipart/form-data',
         },
         withCredentials: true,
       });
       setLoading(false);
-      toggleModal();
-      setFetchCourse(true)
+      setNewChapterAdded(true)
       toast.success(response.data.message, { duration: 2000 });
+      handleEditCourse();
     }
     catch (error) {
       setLoading(false);
-      toast.error(error.response.data.error)
+      toast.error(error)
     }
   }
   return (
@@ -119,11 +126,11 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
           <div className="relative bg-white rounded-lg shadow">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
               <h3 className="text-lg font-semibold text-gray-900">
-                Create Course
+                Edit Course
               </h3>
 
               <button
-                onClick={toggleModal}
+                onClick={handleEditCourse}
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                 data-modal-toggle="crud-modal"
@@ -146,7 +153,7 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            <form className="p-4 md:p-5" onSubmit={handleCreate}>
+            <form className="p-4 md:p-5" onSubmit={handleSubmit}>
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label
@@ -161,7 +168,7 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     id="coursename"
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Give a name to your Course"
+                    value={input.coursename}
                     required=""
                   />
                 </div>
@@ -178,7 +185,7 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     id="price"
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Enter the course price"
+                    value={input.price}
                     required=""
                   />
                 </div>
@@ -197,8 +204,11 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     required=""
                   >
-                    <option value="">Select a category</option>
-                    {categories.map((category) => (
+                    {input.category ?
+                      <option value="">{input.category}</option>
+                      :
+                      <option value="">Select a category</option>}
+                    {categories && categories.map((category) => (
                       <option key={category.id} value={category.id}>
                         {category.category}
                       </option>
@@ -218,7 +228,7 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     id="description"
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Course Description here"
+                    value={input.description}
                     required=""
                   />
                 </div>
@@ -237,6 +247,12 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     onChange={handleFileImage}
                   />
                 </div>
+                {selectedFile && (
+                  <div className="col-span-2 flex items-center">
+                    <p className="text-gray-800">selectedFile:</p>
+                    <p className="text-gray-600 text-verySmall-1">{`${selectedFile}`}</p>
+                  </div>
+                )}
                 <div className="col-span-2">
                   <label
                     htmlFor="about"
@@ -250,7 +266,7 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                     id="about"
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Description about the Author"
+                    value={input.about}
                     required=""
                   />
                 </div>
@@ -264,14 +280,15 @@ const AddCourse = ({ toggleModal, setFetchCourse }) => {
                   Submit{loading && <Spinner />}
                 </button>
               </div>
+
             </form>
+
           </div>
         </div>
       </div>
       <Toaster />
-
     </>
   )
 }
 
-export default AddCourse;
+export default EditCourse

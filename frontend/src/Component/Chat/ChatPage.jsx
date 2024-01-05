@@ -13,7 +13,7 @@ const ChatPage = () => {
     const [fetchGroup, setFetchGroup] = useState('')
     const [roomname, setRoomname] = useState(null);
     const [memberUsernames, setMemberUsernames] = useState([]);
-    const [groupId,setGroupId]=useState(null)
+    const [groupId, setGroupId] = useState(null)
 
     const fetchMemberUsernames = async () => {
         if (headerData && headerData.members) {
@@ -44,10 +44,8 @@ const ChatPage = () => {
                 withCredentials: true,
             });
 
-            console.log(response.data);
             setMessages(response.data)
             setGroupId(id)
-            console.log('grouop id:',id);
 
         } catch (error) {
             console.log('Error fetching group message :', error);
@@ -65,10 +63,9 @@ const ChatPage = () => {
                     },
                     withCredentials: true,
                 });
-                console.log(response.data)
                 setFetchGroup(response.data);
             } catch (error) {
-                console.log('smothing issues');
+                console.log('smothing issues', error);
             }
         };
         fetchRoomCourse();
@@ -76,33 +73,32 @@ const ChatPage = () => {
 
     useEffect(() => {
         const client = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomname}/`);
-    
+
         client.onopen = () => {
-          console.log('WebSocket Client Connected');
+            console.log('WebSocket Client Connected');
         };
-    
+
         client.onerror = (error) => {
-          console.error('WebSocket Error:', error);
+            console.error('WebSocket Error:', error);
         };
-    
+
         let messageListener = null;
-    
+
         messageListener = (message) => {
-          console.log('Received:', message.data);
-          const messageData = JSON.parse(message.data);
-          setMessages((prevMessages) => [...prevMessages, messageData]);
+            const messageData = JSON.parse(message.data);
+            setMessages((prevMessages) => [...prevMessages, messageData]);
         };
-    
+
         client.onmessage = messageListener;
-    
+
         return () => {
-          // Clean up WebSocket event listeners and close connection if needed
-          if (messageListener) {
-            client.onmessage = null;
-          }
-          client.close();
+           
+            if (messageListener) {
+                client.onmessage = null;
+            }
+            client.close();
         };
-      }, [roomname]);
+    }, [roomname]);
 
 
     const sendMessage = () => {
@@ -112,7 +108,6 @@ const ChatPage = () => {
                     text: inputMessage,
                     sender: user.username,
                 };
-                console.log(messageData)
                 client.send(JSON.stringify(messageData));
                 setInputMessage('');
             }

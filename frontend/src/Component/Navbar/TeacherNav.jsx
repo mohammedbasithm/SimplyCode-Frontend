@@ -2,34 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
 import 'hover.css/css/hover-min.css';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AdditionalDetails from '../../pages/TeacherSide/AdditionalDetails';
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../ReduxStore/ReduxStore';
 import { useNavigate } from 'react-router-dom';
 
-const TeacherNav =()=> {
+const TeacherNav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isAuth=useSelector((state)=>state.user)
-  const name=isAuth.username;
-  const approvel=isAuth.is_approvel
+  const isAuth = useSelector((state) => state.user)
+  const name = isAuth.username;
+  const approvel = isAuth.is_approvel
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const dispatch=useDispatch()
-  const navigate=useNavigate()
-  const[modal,setModal]=useState(false)
-  const teacherRequest=isAuth.teacher_request
-  console.log(isAuth);
- 
-  // if (!approvel && !teacher_request){
-  //   useEffect(()=>{
-  //     setIsEditModalOpen(true)
-  //   },[]
-  // )}
-  // if(teacher_request){
-  //   useEffect(()=>{
-  //     setModal(true);
-  //   },[])
-  // }
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [modal, setModal] = useState(false)
+  const teacherRequest = isAuth.teacher_request
+
   useEffect(() => {
     if (!approvel && !teacherRequest) {
       setIsEditModalOpen(true);
@@ -42,8 +31,7 @@ const TeacherNav =()=> {
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
-  console.log('teacherRequest:',teacherRequest);
-  const logoutHandle=()=>{
+  const logoutHandle = () => {
     dispatch(userLogout())
     navigate('/login')
   }
@@ -52,7 +40,7 @@ const TeacherNav =()=> {
   };
   return (
     <div>
-      <AdditionalDetails userId={isAuth.user_id} isEditModalOpen={isEditModalOpen} closeEditModal={closeEditModal}/>
+      <AdditionalDetails userId={isAuth.user_id} isEditModalOpen={isEditModalOpen} closeEditModal={closeEditModal} />
       <nav className="z-40 w-screen bg-black fixed top-0">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="w-full flex items-center justify-between h-16">
@@ -68,14 +56,14 @@ const TeacherNav =()=> {
                   <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
                   <Link to={'/teacher/teacherblog'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Blog</Link>
                 </div>
-              
-              <div className='pl-6 flex items-center justify-between space-x-7'>
+
+                <div className='pl-6 flex items-center justify-between space-x-7'>
                   <Link to={'/teacher/teacherprofile'} className='text-white text-medium cursor-pointer py-1'>
-                   {name}
+                    {name}
                   </Link>
                   <span onClick={logoutHandle} className='hidden md:block bg-teal-500 px-3 py-1 text-custom-btn-color font-medium cursor-pointer  hvr-bounce-to-right'>Logout</span>
                 </div>
-            </div>
+              </div>
             </div>
             <div className="-mr-2 flex md:hidden">
               <button
@@ -136,16 +124,16 @@ const TeacherNav =()=> {
           {(ref) => (
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              
+
                 <div className=" flex flex-col gap-3 mb-3">
-                <Link to={'/teacher/'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Dash Board</Link>
+                  <Link to={'/teacher/'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Dash Board</Link>
                   <Link to={'/teacher/uploadclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Upload Class</Link>
                   <Link to={'/teacher/runningclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Running Class</Link>
                   <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
                   <Link to={'/teacher/teacherpayments'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Payment</Link>
                 </div>
-              
-                
+
+
                 <Link className='text-white text-medium cursor-pointer py-1' to={'/userprofile'}>{name}</Link>
                 <span onClick={logoutHandle} className='md:hidden bg-teal-500 px-3 py-1 text-custom-btn-color font-medium cursor-pointer'>Logout</span>
               </div>
@@ -169,22 +157,22 @@ const TeacherNav =()=> {
                 X
               </button>
               <div className="p-4 text-center">
-              <h1>Approval Verification Pending</h1>
-              {/* <div className="flex justify-center items-center h-screen"> */}
-              <div className="flex justify-center items-center">
-                <img
-                  className="mx-auto"
-                  src="https://static.thenounproject.com/png/5736845-200.png"
-                  alt=""
-                />
-              </div>
+                <h1>Approval Verification Pending</h1>
+                {/* <div className="flex justify-center items-center h-screen"> */}
+                <div className="flex justify-center items-center">
+                  <img
+                    className="mx-auto"
+                    src="https://static.thenounproject.com/png/5736845-200.png"
+                    alt=""
+                  />
+                </div>
 
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                Your approval verification is pending.
+                  Your approval verification is pending.
                 </h3>
 
                 <p className="text-sm text-gray-600">
-                A verification link has been sent to your email address. Please check your email and follow the instructions to complete the verification process.
+                  A verification link has been sent to your email address. Please check your email and follow the instructions to complete the verification process.
                 </p>
               </div>
             </div>

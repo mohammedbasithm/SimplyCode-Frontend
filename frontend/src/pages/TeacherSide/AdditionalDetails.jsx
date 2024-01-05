@@ -2,25 +2,25 @@ import React from 'react'
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import toast,{Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import Spinner from '../../Component/Spinner/Spinner';
 import PublicAxios from '../../axios';
 import { useDispatch } from 'react-redux';
 import { setCredential } from '../../ReduxStore/ReduxStore';
-const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
-  
-  const[phone,setPhone]=useState('')
-  const[qualification,setQualification]=useState('')
-  const[bankAccount,setBankAccount]=useState('')
-  const[ifsc,setIfsc]=useState('')
-  const[idproof,setIdproof]=useState('')
-  const[certificate,setCertificate]=useState('')
-  const[loading,setLoading]=useState(false)
-  const[modal,setModal]=useState(false)
-  const dispatch=useDispatch()
-  const handleSubmit=async(event)=>{
+const AdditionalDetails = ({ isEditModalOpen, closeEditModal, userId }) => {
+
+  const [phone, setPhone] = useState('')
+  const [qualification, setQualification] = useState('')
+  const [bankAccount, setBankAccount] = useState('')
+  const [ifsc, setIfsc] = useState('')
+  const [idproof, setIdproof] = useState('')
+  const [certificate, setCertificate] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [modal, setModal] = useState(false)
+  const dispatch = useDispatch()
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     if (!/^\d{10}$/.test(phone)) {
       // /^\d{10}$/ checks for exactly 10 digits
       toast.error('Please enter a valid 10-digit phone number');
@@ -36,14 +36,14 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
       toast.error('Please enter a valid IFSC code');
       return;
     }
-    if (phone.trim()==='' || !qualification.trim() || !bankAccount.trim() ||!ifsc.trim() ){
+    if (phone.trim() === '' || !qualification.trim() || !bankAccount.trim() || !ifsc.trim()) {
       toast.error('fill the form ')
       return;
-    }const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf']; // Example extensions
+    } const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf']; // Example extensions
     const validateFile = (file) => {
       const fileName = typeof file === 'string' ? file : file.name; // Access file name or file path
       const fileExtension = fileName.split('.').pop().toLowerCase();
-    
+
       // Check if the extension is allowed
       if (!allowedExtensions.includes(fileExtension)) {
         toast.error('Please upload files with allowed extensions (JPG, JPEG, PNG, PDF)');
@@ -57,58 +57,52 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
     if (!idProofValid || !certificateValid) {
       return;
     }
-    try{
+    try {
       setLoading(true)
-     
-      const userData={
-        'phone':phone,
-        'qualification':qualification,
-        'bankaccount':bankAccount,
-        'ifsc':ifsc,
-        'idproof':idproof,
-        'certificate':certificate,
-        'user_id':userId,
+
+      const userData = {
+        'phone': phone,
+        'qualification': qualification,
+        'bankaccount': bankAccount,
+        'ifsc': ifsc,
+        'idproof': idproof,
+        'certificate': certificate,
+        'user_id': userId,
       }
-      console.log(userData);
-      const response=await PublicAxios.post('/teacher/additional-details',userData,{
+      const response = await PublicAxios.post('/teacher/additional-details', userData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Make sure to set the correct content type
         },
-        withCredentials:true,
+        withCredentials: true,
       });
-      if (response.status==200){
+      if (response.status == 200) {
         setLoading(false)
-        console.log('sucess the submission');
         toast.success(response.data.message);
-        const { username, id, access, refresh,is_admin,is_teacher,is_approvel,teacher_request} = response.data.teacher;
-      const userdata = {
-        username,
-        user_id: id, // Assuming user ID is received as 'uid'
-        access_token:access,
-        refresh_token:refresh,
-        role:is_admin ? 'ADMIN' : (is_teacher ? 'TEACHER' : 'USER'),
-        is_approvel:is_approvel,
-        teacher_request:teacher_request,
-      };dispatch(setCredential(userdata))
+        const { username, id, access, refresh, is_admin, is_teacher, is_approvel, teacher_request } = response.data.teacher;
+        const userdata = {
+          username,
+          user_id: id,
+          access_token: access,
+          refresh_token: refresh,
+          role: is_admin ? 'ADMIN' : (is_teacher ? 'TEACHER' : 'USER'),
+          is_approvel: is_approvel,
+          teacher_request: teacher_request,
+        }; dispatch(setCredential(userdata))
         toggleModal();
 
         setModal(true)
-      }else {
+      } else {
         setLoading(false);
-        console.log('Something went wrong');
-        toast.error(response.data.errors);  // Use response.data.errors to access the error message
+        toast.error(response.data.errors);
       }
-      
 
-    }catch(error){
+
+    } catch (error) {
       setLoading(false)
-      console.log('somthing problem');
       toast.error(error.response.data.errors)
     }
-    
 
-
-  }  
+  }
   const toggleModal = () => {
     closeEditModal();
   };
@@ -157,74 +151,74 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
               </div>
               {/* Modal body */}
               <form onSubmit={handleSubmit} class='pb-4 flex flex-col items-center'>
-         
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '40ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField onChange={(e)=>setPhone(e.target.value)} id="standard-basic" label="Phone" variant="standard" />
-            </Box>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '40ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField onChange={(e)=>setQualification(e.target.value)} id="standard-basic" label="Qualification" variant="standard" />
-            </Box>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '40ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField onChange={(e)=>setBankAccount(e.target.value)} id="standard-basic" label="Bank Account Number" variant="standard" />
-            </Box>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '40ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField onChange={(e)=>setIfsc(e.target.value)} id="standard-basic" label="IFSC Code" variant="standard" />
-            </Box>
 
-           
-            <div className='pl-4 relative mb-4 w-full ml-4'>
-                <label htmlFor='idProof' className='block mb-1 text-gray-600'>Attach ID Proof</label>
-                <input
+                <Box
+                  component="form"
+                  sx={{
+                    '& > :not(style)': { m: 1, width: '40ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField onChange={(e) => setPhone(e.target.value)} id="standard-basic" label="Phone" variant="standard" />
+                </Box>
+                <Box
+                  component="form"
+                  sx={{
+                    '& > :not(style)': { m: 1, width: '40ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField onChange={(e) => setQualification(e.target.value)} id="standard-basic" label="Qualification" variant="standard" />
+                </Box>
+                <Box
+                  component="form"
+                  sx={{
+                    '& > :not(style)': { m: 1, width: '40ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField onChange={(e) => setBankAccount(e.target.value)} id="standard-basic" label="Bank Account Number" variant="standard" />
+                </Box>
+                <Box
+                  component="form"
+                  sx={{
+                    '& > :not(style)': { m: 1, width: '40ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField onChange={(e) => setIfsc(e.target.value)} id="standard-basic" label="IFSC Code" variant="standard" />
+                </Box>
+
+
+                <div className='pl-4 relative mb-4 w-full ml-4'>
+                  <label htmlFor='idProof' className='block mb-1 text-gray-600'>Attach ID Proof</label>
+                  <input
                     id='idProof'
                     className='w-full text-gray-600'
                     type='file'
                     accept='.pdf, .doc, .docx, .jpg, .jpeg, .png'
-                    onChange={(e)=>setIdproof(e.target.files[0])}
-                />
-            </div>
-            <div className='pl-4 ml-4 relative mb-4 w-full'>
-                <label htmlFor='idProof' className='block mb-1 text-gray-600'>Attach Certificate</label>
-                <input
+                    onChange={(e) => setIdproof(e.target.files[0])}
+                  />
+                </div>
+                <div className='pl-4 ml-4 relative mb-4 w-full'>
+                  <label htmlFor='idProof' className='block mb-1 text-gray-600'>Attach Certificate</label>
+                  <input
                     id='idProof'
                     className='w-full text-gray-600'
                     type='file'
                     accept='.pdf, .doc, .docx, .jpg, .jpeg, .png'
-                    onChange={(e)=>setCertificate(e.target.files[0])}
-                />
-            </div>
-        
-            <button type='submit' className=' bg-teal-500 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded'>
-              Submit {loading && <Spinner/>}
-            </button>
-        </form>
+                    onChange={(e) => setCertificate(e.target.files[0])}
+                  />
+                </div>
+
+                <button type='submit' className=' bg-teal-500 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded'>
+                  Submit {loading && <Spinner />}
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -244,29 +238,29 @@ const AdditionalDetails = ({isEditModalOpen, closeEditModal,userId}) => {
                 X
               </button>
               <div className="p-4 text-center">
-              <h1>Verification Email Sent</h1>
-              {/* <div className="flex justify-center items-center h-screen"> */}
-              <div className="flex justify-center items-center">
-                <img
-                  className="mx-auto"
-                  src="https://static.thenounproject.com/png/5736845-200.png"
-                  alt=""
-                />
-              </div>
+                <h1>Verification Email Sent</h1>
+                {/* <div className="flex justify-center items-center h-screen"> */}
+                <div className="flex justify-center items-center">
+                  <img
+                    className="mx-auto"
+                    src="https://static.thenounproject.com/png/5736845-200.png"
+                    alt=""
+                  />
+                </div>
 
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
                   Thank you for submission!
                 </h3>
 
                 <p className="text-sm text-gray-600">
-                A verification link has been sent to your email address. Please check your email and follow the instructions to complete the verification process.
+                  A verification link has been sent to your email address. Please check your email and follow the instructions to complete the verification process.
                 </p>
               </div>
             </div>
           </div>
         </div>
       )}
-      <Toaster/>
+      <Toaster />
     </div>
   )
 }

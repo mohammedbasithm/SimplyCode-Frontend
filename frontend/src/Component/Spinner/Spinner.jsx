@@ -9,7 +9,7 @@ const Spinner = () => {
         <span class="visually-hidden"> </span>
       </div>
     </div>
-    
+
   );
 };
 

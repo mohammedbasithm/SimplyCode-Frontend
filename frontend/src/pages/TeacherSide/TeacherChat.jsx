@@ -4,7 +4,7 @@ import TeacherNav from '../../Component/Navbar/TeacherNav'
 function TeacherChat() {
   return (
     <div>
-        <TeacherNav/>
+      <TeacherNav />
       teacherChat...
     </div>
   )
