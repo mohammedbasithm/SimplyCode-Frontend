@@ -157,7 +157,7 @@ function SignIn() {
         </div>
         <div className=' bg-white h-full w-full flex flex-col justify-center items-center'>
           <h1 className='text-3xl mb-4 text-black'>Login</h1>
-          <form onSubmit={handleSubmit} class='flex flex-col items-center'>
+          <form onSubmit={handleSubmit} className='flex flex-col items-center'>
 
             <Box
               component="form"

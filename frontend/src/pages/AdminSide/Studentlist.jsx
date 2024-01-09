@@ -42,8 +42,6 @@ const Studentslist = () => {
   const [filtersTabs, setFiltersTabs] = useState([]);
   const [trigger, setTrigger] = useState(false)
   const authState = useSelector((state) => state.user)
-  console.log('role:', authState.role);
-
   useEffect(() => {
     const userlistData = async () => {
       try {
@@ -55,45 +53,43 @@ const Studentslist = () => {
 
         setUserList(response.data);
         setFiltersTabs(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching courses:", error);
-        // setIsLoading(false);
       }
     };
 
     userlistData();
-  }, []); // Empty dependency array to ensure the request is made only once
+  }, []); 
 
 
 
 
 
-  // Calculate the start and end indices based on the current page and items per page
+  
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
 
-  // Filter the user list based on the search query
+  
   const filteredUserList = filtersTabs.filter((user) =>
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Slice the filtered user list based on pagination
+  
   const slicedUserList = filteredUserList.slice(startIndex, endIndex);
 
-  // Function to handle page navigation
+ 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
-  // Function to handle search input change
+  
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
   };
 
 
-  // Function to block a user
+  
   const blockUser = async (userId) => {
     try {
       const response = await PublicAxios.put(`/admin/blockuser/${userId}/`, {
@@ -103,28 +99,25 @@ const Studentslist = () => {
         withCredentials: true,
       });
 
-      // If the request is successful, update the user's status in the local state
+     
       const updatedUserList = userList.map((user) => {
         if (user.id === userId) {
-          // Update the user's is_active status to false
+          
           return { ...user, is_active: false };
         }
         return user;
       });
 
 
-      // Update the local state with the modified user list
+      
       setUserList(updatedUserList);
       setTrigger(!trigger)
-      // Handle success response (e.g., show a success message)
-      console.log("User blocked successfully", response.data);
     } catch (error) {
-      // Handle error (e.g., show an error message)
       console.error("Error blocking user:", error);
     }
   };
 
-  // Add an event handler for unblocking a user
+  
   const handleUnblockUser = (userId) => {
     PublicAxios.put(`/admin/userunblock/${userId}/`,
       {

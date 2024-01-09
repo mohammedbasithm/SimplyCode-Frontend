@@ -46,7 +46,7 @@ const TeacherCard = ({ teacher, setUpdate }) => {
 
     return (
         <>
-            <div className=' bg-gray-700 w-64 h-56 rounded-md'>
+            <div key={teacher.id} className=' bg-gray-700 w-64 h-56 rounded-md'>
                 <div className='w-full h-2/3'>
                     <div className='h-2/3 flex justify-center py-3'>
                         {teacher.image ? <img className='w-1/3 h-full' src={`${Image_URL}${teacher.image}`} alt="" /> :

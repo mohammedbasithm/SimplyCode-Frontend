@@ -82,7 +82,7 @@ function SignUp() {
   };
   return (
     <>
-    {/* <Navigation/> */}
+    <Navigation/>
     <div className="relative">
       <div className='flex bg-white h-screen '>
         <div className='mt-8 bg-white h-full w-full flex flex-col justify-center items-center'>
