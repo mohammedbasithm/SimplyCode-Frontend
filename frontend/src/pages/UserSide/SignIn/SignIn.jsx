@@ -20,7 +20,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Navigation from '../../../Component/Navbar/UserNav';
-import {img1} from '../../../../src/assets/img1.jpg'
+import img1 from '../../../../src/assets/img1.jpg'
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
