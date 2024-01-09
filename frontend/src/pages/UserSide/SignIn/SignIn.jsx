@@ -20,7 +20,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Navigation from '../../../Component/Navbar/UserNav';
-
+import {img1} from '../../../../src/assets/img1.jpg'
 
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -38,8 +38,7 @@ function SignIn() {
     const queryParams = new URLSearchParams(window.location.search);
     const uidb64 = queryParams.get('uidb64');
     setUidb64(uidb64)
-    // Use uidb64 here or pass it as a prop to this component
-    console.log('uidb64:', uidb64);
+   
   }, [location.search]);
 
 
@@ -77,13 +76,8 @@ function SignIn() {
         },
         withCredentials: true,
       });
-      console.log('is_active:', response.data.is_active);
+      
       if (response.data.is_active) {
-        console.log('login successfuly :', response.data);
-        console.log('is_admim:', response.data.is_admin);
-
-
-        console.log('==========');
         const { username, uid, access, refresh, is_admin, is_teacher, is_approvel, teacher_request } = response.data;
         const userData = {
           username,
@@ -94,20 +88,11 @@ function SignIn() {
           is_approvel: is_approvel,
           teacher_request: teacher_request,
         };
-        console.log('user role:', userData.role);
-        console.log('-----access------->', userData.access_token);
-        console.log('-----refresh------->', userData.refresh_token);
         dispatch(setCredential(userData))
-        console.log("Stored access token:", localStorage.getItem("access_token"));
-
-        console.log("Full response data:", response.data);
-
-        console.log("Access token received:", response.data.access);
         localStorage.setItem("username", response.data.username);
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.access_token}`;
-        console.log('userdata', userData.role);
         if (userData.role === 'ADMIN') {
           navigate('/admin');
         } else if (userData.role === 'TEACHER') {
@@ -152,7 +137,7 @@ function SignIn() {
       <div className='flex bg-white h-screen '>
         <div className='mt-8  h-full w-full hidden md:flex items-center justify-center'>
           <div className='item-center justify-center flex flex-center '>
-            <img className='  ' src='src/assets/img1.jpg' alt="" />
+            <img className='  ' src={img1} alt="" />
           </div>
         </div>
         <div className=' bg-white h-full w-full flex flex-col justify-center items-center'>
