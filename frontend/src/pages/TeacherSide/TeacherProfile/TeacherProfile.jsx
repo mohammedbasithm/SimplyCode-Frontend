@@ -4,9 +4,23 @@ import ProfileIcon from './ProfileIcon'
 import { FaMailBulk, FaPhone } from 'react-icons/fa';
 import TeacherNav from '../../../Component/Navbar/TeacherNav';
 import profilePic from '../../../assets/img.jpg'
+import PublicAsiox from '../../../axios';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const TeacherProfile = () => {
-
+const [teacherData,setTeacherData]=useState('')
+const teacherId=useSelector((state)=>state.user.user_id)
+  useEffect(()=>{
+    const fetchdata=async()=>{
+      const response=await PublicAsiox.get('/teacher/teacherData',{
+        params:{teacherId}
+      })
+      setTeacherData(response.data)
+    }
+    fetchdata()
+  },[])
   return (
     <>
       <TeacherNav />
@@ -20,13 +34,13 @@ const TeacherProfile = () => {
                 <div className='h-1/4 flex justify-end pr-5'>
                   <ThreeDotMenu />
                 </div>
-                <div className='h-1/4 pl-5 text-2xl font-semibold flex items-center'>Maria Historia</div>
+                <div className='h-1/4 pl-5 text-2xl font-semibold flex items-center'>{teacherData.username}</div>
                 <div className='h-2/4 flex flex-col md:flex-row pl-5'>
                   <div className='w-1/2 h-full flex items-center'>
-                    <ProfileIcon Icon={<FaMailBulk />} title='email' subtitle='kingkaiser@gmail.com' />
+                    <ProfileIcon Icon={<FaMailBulk />} title='email' subtitle={teacherData.email} />
                   </div>
                   <div className='w-1/2 h-full flex items-center'>
-                    <ProfileIcon Icon={<FaPhone />} title='phone' subtitle='909876883' />
+                    <ProfileIcon Icon={<FaPhone />} title='phone' subtitle={teacherData.phone} />
                   </div>
                 </div>
               </div>

@@ -32,7 +32,10 @@ const MyCourse = () => {
     <>
       <Navigation />
 
-      <div className="pt-20 container mx-auto p-3 border-gray-200 overflow-x-auto">
+      <div className="pt-14 container mx-auto  border-gray-200 overflow-x-auto">
+        <div className='bg-indigo-100 h-64 w-full flex justify-center items-center' style={{ borderBottomRightRadius: '75px' }}>
+          <div className='text-blue-900 text-4xl font-bold'>My Course</div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
           {courseData && courseData.map((course) => (
             <div key={course.id} className="p-4 bg-white rounded shadow-md">

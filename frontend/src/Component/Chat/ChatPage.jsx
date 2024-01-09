@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import publicAxios from '../../axios';
 import Navigation from '../Navbar/UserNav';
+import { Image_URL } from '../../constants/constans';
 
 const ChatPage = () => {
     const user = useSelector((state) => state.user)
@@ -176,7 +177,7 @@ const ChatPage = () => {
                                             {group.course.cover_image ?
                                                 (<div>
                                                     <img className="h-12 w-12 rounded-full"
-                                                        src={`http://127.0.0.1:8000${group.course.cover_image}`} />
+                                                        src={`${Image_URL}${group.course.cover_image}`} />
                                                 </div>) :
                                                 (<div>
                                                     <img className="h-12 w-12 rounded-full"
@@ -213,7 +214,7 @@ const ChatPage = () => {
                                         {headerData &&
                                             <div className="flex items-center">
                                                 <div>
-                                                    <img className="w-10 h-10 rounded-full" src={`http://127.0.0.1:8000${headerData.course.cover_image}`} />
+                                                    <img className="w-10 h-10 rounded-full" src={`${Image_URL}${headerData.course.cover_image}`} />
                                                 </div>
                                                 <div className="ml-4">
                                                     <p className="text-grey-darkest">

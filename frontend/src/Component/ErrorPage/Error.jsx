@@ -1,34 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import Loading from '../Spinner/Loading';
+import './error.css'
 
 const Error = () => {
-  // const navigate = useNavigate();
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   // Simulate loading with a delay (you can replace this with your actual loading logic)
-  //   const delay = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 2000);
-
-  //   // Clear the timeout when the component unmounts
-  //   return () => clearTimeout(delay);
-  // }, []);
 
   return (
-    // <div className="lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
-    //   {isLoading ? (
-    //     // Loading state
-    //     // <div ><Loading/></div>
-    //     <h1>hi</h1>
-    //   ) : (
     <section>
-
       <div class="bg-black text-white">
-        <div class="flex h-screen">
-          <div class="m-auto text-center">
-            <div>
+    <div class="flex h-screen">
+      <div class="m-auto text-center">
+        <div class="svg-container">
               <svg width="631" height="379" viewBox="0 0 631 379" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
                   <path
@@ -204,13 +185,10 @@ const Error = () => {
                 </defs>
               </svg>
 
-            </div>
-            <p class="text-sm md:text-base text-yellow-300 p-2 mb-4">The stuff you were looking for doesn't exist
-            </p>
-            <a href="/"
-              class="bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-300 hover:border-transparent">
-              Retry</a>
-          </div>
+              </div>
+        <p class="text-sm md:text-base text-yellow-300 p-2 mb-4">The stuff you were looking for doesn't exist</p>
+        <a href="/" class="bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-300 hover:border-transparent">Retry</a>
+      </div>
         </div>
       </div>
     </section>

@@ -123,7 +123,7 @@ const BlogDetailsUser = () => {
   return (
     <>
       <Navigation />
-      <div className='pt-16'>
+      <div className='pt-16 p-2'>
         {blogData && (
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-4">

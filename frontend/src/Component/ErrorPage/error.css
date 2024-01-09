@@ -1,0 +1,91 @@
+.bg-black {
+    background-color: black;
+  }
+
+  .text-white {
+    color: white;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .h-screen {
+    height: 100vh;
+  }
+
+  .m-auto {
+    margin: auto;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-sm {
+    font-size: 0.875rem; /* Adjust as needed */
+  }
+
+  .md\:text-base {
+    font-size: 1rem; /* Adjust as needed */
+  }
+
+  .text-yellow-300 {
+    color: #FFD700;
+  }
+
+  .p-2 {
+    padding: 0.5rem; /* Adjust as needed */
+  }
+
+  .mb-4 {
+    margin-bottom: 1rem; /* Adjust as needed */
+  }
+
+  .bg-transparent {
+    background-color: transparent;
+  }
+
+  .hover\:bg-yellow-300:hover {
+    background-color: #FFD700;
+  }
+
+  .text-yellow-300 {
+    color: #FFD700;
+  }
+
+  .hover\:text-white:hover {
+    color: white;
+  }
+
+  .rounded {
+    border-radius: 0.25rem; /* Adjust as needed */
+  }
+
+  .shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .hover\:shadow-lg:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .border {
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .border-yellow-300 {
+    border-color: #FFD700;
+  }
+
+  .hover\:border-transparent:hover {
+    border-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .svg-container {
+      width: 100%;
+      max-width: 300px; /* Adjust as needed */
+    }
+  }

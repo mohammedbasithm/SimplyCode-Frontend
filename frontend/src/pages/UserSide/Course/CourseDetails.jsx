@@ -50,7 +50,7 @@ const CourseDetails = () => {
         chapterFetchdata();
         fetchPaymentData();
     }, [])
-    const handlePurches = async (id) => {
+    const handlePurchase = async (id) => {
         try {
             const response = await PublicAxios.post('/stripe/create-checkout-session', { id, user_id: user_id }, {
                 headers: {
@@ -72,7 +72,7 @@ const CourseDetails = () => {
             <div className="flex flex-col mt-10 lg:flex-row items-start bg-slate-100 pt-16">
                 <div className="pl-3 w-full lg:w-2/3 lg:mr-6 mb-6 lg:mb-0">
                     <ReactPlayer url={currentVideo} controls={true} playing={true} width="100%" height="100%" />
-                    <div className="p-3 mx-5 w-2/3 w-full">
+                    <div className="p-3 mx-5  w-auto">
                         <span className="font-bold text-lg">Description:{` `} </span>
                         <div className="text-justify">{description}</div>
                     </div>
@@ -104,25 +104,26 @@ const CourseDetails = () => {
                 </div>
                 {showModal && (
                     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60">
-                        <div className="relative bg-white p-12 rounded-md w-1/3 shadow-2xl">
-                            <h2 className="text-3xl font-semibold mb-6">Unlock Full Course</h2>
-                            <p className="mb-6 text-lg">🎥 Access to 20+ exclusive videos</p>
-                            <p className="mb-6 text-lg">📄 Get 20+ premium PDF notes</p>
-                            <p className="mb-8 text-lg">🕒 Enjoy lifetime validity for all content</p>
-
-                            {/* <PayPalComponent course={chapters[0]?.course }refresh ={fetchChapters} setmodal={setShowModal} paymodal ={setPaymentmodal} /> */}
-                            <div className='flex justify-center'>
-                                <button onClick={() => handlePurches(courseId)} className='bg-green-600 px-4 py-2 rounded-full '>BUY NOW</button>
-                            </div>
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setShowModal(false)}
-                                className="absolute top-2 right-2 px-3 py-1 mr-0 mt-2"
-                            >
-                                ✖️
-                            </button>
+                    <div className="relative bg-white p-6 md:p-12 lg:w-1/2 xl:w-1/3 shadow-2xl">
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 md:mb-6">Unlock Full Course</h2>
+                        <p className="mb-4 text-base md:text-lg">🎥 Access to 20+ exclusive videos</p>
+                        <p className="mb-4 text-base md:text-lg">📄 Get 20+ premium PDF notes</p>
+                        <p className="mb-6 text-base md:text-lg">🕒 Enjoy lifetime validity for all content</p>
+                
+                        {/* <PayPalComponent course={chapters[0]?.course} refresh={fetchChapters} setmodal={setShowModal} paymodal={setPaymentmodal} /> */}
+                        <div className='flex justify-center'>
+                            <button onClick={() => handlePurchase(courseId)} className='bg-green-600 px-4 py-2 rounded-full '>BUY NOW</button>
                         </div>
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-2 right-2 px-3 py-1 mr-0 mt-2"
+                        >
+                            ✖️
+                        </button>
                     </div>
+                </div>
+                
                 )}
             </div>
         </>

@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import PublicAxios from '../../../axios';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { Image_URL } from '../../../constants/constans';
 
 const CourseDetailsAdmin = () => {
 
@@ -12,7 +13,7 @@ const CourseDetailsAdmin = () => {
     const [currentVideo, setCurrentVideo] = useState('')
     const [chapterDetails, setChapterDetails] = useState('')
     const [description, setDescription] = useState('')
-    const baseURL = 'http://127.0.0.1:8000'
+    const baseURL = Image_URL
 
     useEffect(() => {
         const chapterFetchdata = async () => {

@@ -11,6 +11,7 @@ import EditCourse from './EditCourse'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import DeleteModal from '../../../Component/Modal/DeleteModal'
+import { Image_URL } from '../../../constants/constans'
 
 const AboutCourse = ({ id }) => {
   const navigate = useNavigate()
@@ -202,7 +203,7 @@ const AboutCourse = ({ id }) => {
           <div className='bg-gray-400 '>
             <div className="flex flex-col ml-3 p-5">
               <img
-                src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
+                src={`${Image_URL}${courseDetails.cover_image}`}
                 alt="thumbnail"
                 className=" w-1/4"
               />

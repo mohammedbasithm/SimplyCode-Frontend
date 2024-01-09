@@ -3,6 +3,8 @@ import { Button } from "@material-tailwind/react";
 import PublicAxios from '../../../axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Image_URL } from '../../../constants/constans';
+
 const profilePic = 'https://akademi.dexignlab.com/react/demo/static/media/8.0ec0e6b47b83af64e0c9.jpg';
 const TeacherCard = ({ teacher, setUpdate }) => {
 
@@ -47,7 +49,7 @@ const TeacherCard = ({ teacher, setUpdate }) => {
             <div className=' bg-gray-700 w-64 h-56 rounded-md'>
                 <div className='w-full h-2/3'>
                     <div className='h-2/3 flex justify-center py-3'>
-                        {teacher.image ? <img className='w-1/3 h-full' src={`http://127.0.0.1:8000/${teacher.image}`} alt="" /> :
+                        {teacher.image ? <img className='w-1/3 h-full' src={`${Image_URL}${teacher.image}`} alt="" /> :
                             <img className='w-1/3 h-full' src={profilePic} alt="" />}
                     </div>
                     <div className='h-2/3 text-white flex flex-col items-center gap-1 capitalize'>

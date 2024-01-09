@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { userLogout } from '../../ReduxStore/ReduxStore';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const TeacherNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isAuth = useSelector((state) => state.user)
@@ -18,6 +20,7 @@ const TeacherNav = () => {
   const navigate = useNavigate()
   const [modal, setModal] = useState(false)
   const teacherRequest = isAuth.teacher_request
+
 
   useEffect(() => {
     if (!approvel && !teacherRequest) {
@@ -134,7 +137,7 @@ const TeacherNav = () => {
                 </div>
 
 
-                <Link className='text-white text-medium cursor-pointer py-1' to={'/userprofile'}>{name}</Link>
+                <Link className='text-white text-medium cursor-pointer py-1' to={'/teacher/teacherprofile'}>{name}</Link>
                 <span onClick={logoutHandle} className='md:hidden bg-teal-500 px-3 py-1 text-custom-btn-color font-medium cursor-pointer'>Logout</span>
               </div>
             </div>

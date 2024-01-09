@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import AdminNav from '../../../Component/Navbar/AdminNav'
 import { Button } from "@material-tailwind/react";
 import toast, { Toaster } from 'react-hot-toast'
+import { Image_URL } from '../../../constants/constans'
 
 const Allcourse = () => {
   const [update, setUpdate] = useState(true)
@@ -65,7 +66,7 @@ const Allcourse = () => {
             <div key={course.id} className="p-4 bg-white rounded shadow-md max-w-sm">
               <div className='flex justify-center'>
                 <img
-                  src={`http://127.0.0.1:8000${course.cover_image}`}
+                  src={`${Image_URL}${course.cover_image}`}
                   className="w-48 h-48 object-cover rounded "
                   alt="Course banner"
                 />

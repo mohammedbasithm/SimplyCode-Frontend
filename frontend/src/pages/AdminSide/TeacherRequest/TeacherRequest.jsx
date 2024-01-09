@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import AdminNav from '../../../Component/Navbar/AdminNav';
 import PicModal from './PicModal';
 import toast, { Toaster } from 'react-hot-toast';
+import { Image_URL } from '../../../constants/constans';
 
 const TeacherRequest = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -174,7 +175,7 @@ const TeacherRequest = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center items-center">
                       <img
-                        src={`http://127.0.0.1:8000${teacher.id_proof}`}
+                        src={`${Image_URL}${teacher.id_proof}`}
 
                         alt="ID Proof"
                         className="h-8 w-8 cursor-pointer"

@@ -56,7 +56,7 @@ export const Navigation = () => {
               Simply Code
             </span>
           </Link>
-          <ul className="flex items-center hidden space-x-8 lg:flex ">
+          <ul className=" items-center hidden space-x-8 lg:flex ">
             <li>
               <Link
                 to='/'
@@ -77,7 +77,7 @@ export const Navigation = () => {
                 Course
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to={isAuth.role === 'USER' ? "/aboutus" : "/login"}
                 aria-label="Product pricing"
@@ -86,7 +86,7 @@ export const Navigation = () => {
               >
                 About Us
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to={isAuth.role === 'USER' ? "/blog" : "/login"}
@@ -229,7 +229,7 @@ export const Navigation = () => {
                           Course
                         </Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link
                           to={isAuth.role === 'USER' ? "/aboutus" : "/login"}
                           aria-label="Product pricing"
@@ -238,7 +238,7 @@ export const Navigation = () => {
                         >
                           AboutUs
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link
                           to={isAuth.role === 'USER' ? "/blog" : "/login"}

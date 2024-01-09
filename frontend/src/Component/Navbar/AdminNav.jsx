@@ -233,7 +233,7 @@ export const AdminNav = () => {
                       </li>
                       <li>
                         <Link
-                          href="/admin/teacher-list"
+                          to="/admin/teacher-list"
                           aria-label="Product pricing"
                           title="Product pricing"
                           class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"

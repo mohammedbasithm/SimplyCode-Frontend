@@ -7,6 +7,8 @@ import ChapterDetails from '../../TeacherSide/UploadCource/ChapterDetails';
 import toast, { Toaster } from 'react-hot-toast';
 import Navigation from '../../../Component/Navbar/UserNav';
 import { useSelector } from 'react-redux'
+import { Image_URL } from '../../../constants/constans';
+
 const ChapterCourse = () => {
   const { id } = useParams();
   const [courseDetails, setCourseDetails] = useState('')
@@ -99,7 +101,7 @@ const ChapterCourse = () => {
           <div className='bg-gray-400 '>
             <div className="flex flex-col ml-3 p-5">
               <img
-                src={`http://127.0.0.1:8000${courseDetails.cover_image}`}
+                src={`${Image_URL}${courseDetails.cover_image}`}
                 alt="thumbnail"
                 className=" w-1/4"
               />

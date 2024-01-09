@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import Pagination from '../../../Component/pagination/Pagination'
+import { Image_URL } from '../../../constants/constans'
 
 function Course() {
   const navigate = useNavigate()
@@ -57,7 +58,7 @@ function Course() {
               return (
                 <div key={index} className="p-4 bg-white rounded shadow-md max-w-sm">
                   <img
-                    src={`http://127.0.0.1:8000${course.cover_image}`}
+                    src={`${Image_URL}${course.cover_image}`}
                     className="w-60 h-48 object-cover rounded"
                     alt="Course banner"
                   />

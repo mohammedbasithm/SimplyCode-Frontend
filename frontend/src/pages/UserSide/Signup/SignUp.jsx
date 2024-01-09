@@ -12,6 +12,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Spinner from '../../../Component/Spinner/Spinner';
+import Navigation from '../../../Component/Navbar/UserNav';
 
 function SignUp() {
 
@@ -80,6 +81,8 @@ function SignUp() {
     setModal(false);
   };
   return (
+    <>
+    {/* <Navigation/> */}
     <div className="relative">
       <div className='flex bg-white h-screen '>
         <div className='mt-8 bg-white h-full w-full flex flex-col justify-center items-center'>
@@ -103,7 +106,7 @@ function SignUp() {
               }}
               noValidate
               autoComplete="off"
-            >
+              >
               <TextField onChange={(e) => setEmail(e.target.value)} id="standard-basic" label="Email" variant="standard" />
             </Box>
             <FormControl sx={{ m: 1, width: '40ch' }} variant="standard">
@@ -124,7 +127,7 @@ function SignUp() {
                     </IconButton>
                   </InputAdornment>
                 }
-              />
+                />
             </FormControl>
             <FormControl sx={{ m: 1, width: '40ch' }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
@@ -181,7 +184,7 @@ function SignUp() {
         <div
           id="popup-modal"
           className="fixed top-0 right-0 left-0 z-50 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-75"
-        >
+          >
           <div className="relative p-4 w-full max-w-md">
             <div className="relative bg-white rounded-lg shadow">
               <button
@@ -216,6 +219,7 @@ function SignUp() {
       )}
       <Toaster />
     </div>
+  </>
   )
 }
 
