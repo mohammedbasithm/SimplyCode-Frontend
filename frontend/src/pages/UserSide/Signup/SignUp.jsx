@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Spinner from '../../../Component/Spinner/Spinner';
 import Navigation from '../../../Component/Navbar/UserNav';
+import img1 from '../../../../src/assets/img1.jpg'
 
 function SignUp() {
 
@@ -83,7 +84,7 @@ function SignUp() {
   return (
     <>
     <Navigation/>
-    <div className="relative">
+    <div className="relative pt-9">
       <div className='flex bg-white h-screen '>
         <div className='mt-8 bg-white h-full w-full flex flex-col justify-center items-center'>
           <h1 className='text-3xl mb-4 text-black'>SignUp</h1>
@@ -175,7 +176,7 @@ function SignUp() {
         </div>
         <div className='mt-8  h-full w-full hidden md:flex items-center justify-center'>
           <div className='item-center justify-center flex flex-center '>
-            <img className='  ' src='src/assets/img1.jpg' alt="" />
+            <img className='  ' src={img1} alt="" />
           </div>
         </div>
       </div>

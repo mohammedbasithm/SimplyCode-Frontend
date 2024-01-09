@@ -134,7 +134,7 @@ function SignIn() {
 
     <>
       <Navigation />
-      <div className='flex bg-white h-screen '>
+      <div className='flex bg-white h-screen pt-16'>
         <div className='mt-8  h-full w-full hidden md:flex items-center justify-center'>
           <div className='item-center justify-center flex flex-center '>
             <img className='  ' src={img1} alt="" />
