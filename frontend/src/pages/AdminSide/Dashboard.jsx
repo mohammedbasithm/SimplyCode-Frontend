@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminNav from '../../Component/Navbar/AdminNav'
-
+import img1 from '../../../src/assets/img1.jpg'
 
 function Dashboard() {
   return (
@@ -31,7 +31,7 @@ function Dashboard() {
             </div>
             <div className="lg:w-1/2 mt-6 lg:mt-0">
               <img
-                src="src/assets/img1.jpg"
+                src={img1}
                 alt="Admin Dashboard Illustration"
                 className="w-full h-auto rounded-md shadow-md"
               />
