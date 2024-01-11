@@ -9,6 +9,7 @@ import EditUserProfile from './EditUserProfile';
 import toast, { Toaster } from 'react-hot-toast';
 import CurrentPassword from './CurrentPassword';
 import ChangePassword from './ChangePassword'
+import { Image_URL } from '../../../constants/constans';
 
 const UserProfile = () => {
 
@@ -91,7 +92,7 @@ const UserProfile = () => {
             <div className="p-4 md:p-12 text-center lg:text-left">
               {image ? <div
                 className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center relative"
-                style={{ backgroundImage: `url(http://127.0.0.1:8000${image})` }}
+                style={{ backgroundImage: `url(${Image_URL}${image})` }}
 
               >
 
@@ -138,7 +139,7 @@ const UserProfile = () => {
                   <path d="M10 0a7.44 7.44 0 0 1 5.3 2.2 7.48 7.48 0 0 1 2.2 5.3c0 4-3.4 7.2-7.5 7.2S2.5 11.5 2.5 7.3 5.9 0 10 0zM10 18c-4.9 0-9-3.9-9-9s4.1-9 9-9 9 3.9 9 9-4.1 9-9 9z"></path>
                   <path d="M10 4.2a4.8 4.8 0 0 0-4.8 4.8c0 2.7 2.2 4.8 4.8 4.8s4.8-2.2 4.8-4.8-2.2-4.8-4.8-4.8zm0 8.6a3.8 3.8 0 0 1-3.8-3.8 3.8 3.8 0 0 1 3.8-3.8 3.8 3.8 0 0 1 3.8 3.8 3.8 3.8 0 0 1-3.8 3.8z"></path>
                 </svg>
-                Phone: {userData.phone}9087654321
+                Phone: {userData.phone}
               </p>
               <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                 <svg className="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -170,7 +171,7 @@ const UserProfile = () => {
               style={{ display: 'none' }}
               onChange={handleFileChange}
             />
-            {image ? <img src={`http://127.0.0.1:8000${image}`} className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block" alt="Profile"
+            {image ? <img src={`${Image_URL}${image}`} className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block" alt="Profile"
             /> : <img src={imageUrl} className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block" alt="Profile"
             />}
           </div>
