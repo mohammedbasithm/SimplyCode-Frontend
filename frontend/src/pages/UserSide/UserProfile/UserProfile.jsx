@@ -164,7 +164,7 @@ const UserProfile = () => {
             </div>
           </div>
           <div className="w-full lg:w-2/5">
-            <FiEdit className="text-blue-500 text-2xl hover:text-blue-700  hidden lg:block" onClick={handleProfilePic} />
+            <FiEdit onClick={handleProfilePic} className="text-blue-500 text-2xl hover:text-blue-700  hidden lg:block" />
             <input
               type="file"
               ref={fileInputRef}
