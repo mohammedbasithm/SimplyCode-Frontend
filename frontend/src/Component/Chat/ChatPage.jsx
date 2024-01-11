@@ -52,7 +52,7 @@ const ChatPage = () => {
             console.log('Error fetching group message :', error);
         }
     }
-    const client = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomname}/`);
+    const client = new WebSocket(`ws://symplycode.basith.shop/ws/chat/${roomname}/`);
 
     useEffect(() => {
         const fetchRoomCourse = async () => {
@@ -73,7 +73,8 @@ const ChatPage = () => {
     }, []);
 
     useEffect(() => {
-        const client = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomname}/`);
+        // const client = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomname}/`);
+        const client = new WebSocket(`ws://symplycode.basith.shop/ws/chat/${roomname}/`);
 
         client.onopen = () => {
             console.log('WebSocket Client Connected');
