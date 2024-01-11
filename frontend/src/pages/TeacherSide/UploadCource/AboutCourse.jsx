@@ -99,7 +99,7 @@ const AboutCourse = ({ id }) => {
   };
   const handleCreate = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    
     if (
       input.chapterName.trim() === '' ||
       input.description.trim() === ''
@@ -108,12 +108,20 @@ const AboutCourse = ({ id }) => {
       return;
     }
     try {
+      setLoading(true)
       const response = await PublicAxios.post('/course/addchapter', input, {
         headers: {
           "Content-Type": 'multipart/form-data',
         },
         withCredentials: true,
       });
+      setInput({
+        'chapterName': '',
+        'description': '',
+        'videos': '',
+        'is_free': false,
+        'course_id': id,
+      })
       toast.success(response.data.message);
       setNewChapterAdded(true);
       setIsModalVisible(false)
