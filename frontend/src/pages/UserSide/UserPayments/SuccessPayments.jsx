@@ -3,20 +3,13 @@ import Navigation from '../../../Component/Navbar/UserNav'
 import { Footer } from '../../../Component/Footer'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import PublicAxios from '../../../axios'
-
 const SuccessPayments = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
-      const SuccessPayment=async()=>{
-        const response=await PublicAxios.get('/stripe/success-checkout')
-        alert("Order placed! You will receive an email confirmation.");
-      }
-      SuccessPayment();
-
+      alert("Order placed! You will receive an email confirmation.");
     }
 
     if (query.get("canceled")) {
