@@ -124,7 +124,7 @@ function TeacherBlog() {
           <span className="text-3xl font-bold text-black">Blog: </span>
           <button onClick={toggleModal} type="button" className='bg-green-600 border rounded-md p-3'>
             <div class="flex sm:flex-cols-12 gap-2 ">
-              <div class="col-span-2 pt-2">Add Course</div>
+              <div class="col-span-2 pt-2">Add Blog</div>
             </div>
           </button>
         </div>
