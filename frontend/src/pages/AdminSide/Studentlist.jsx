@@ -59,7 +59,7 @@ const Studentslist = () => {
     };
 
     userlistData();
-  }, []); 
+  }, [trigger]); 
 
 
 
