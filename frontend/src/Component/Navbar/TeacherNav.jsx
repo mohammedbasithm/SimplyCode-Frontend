@@ -56,7 +56,7 @@ const TeacherNav = () => {
                   <Link to={'/teacher/'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Dash Board</Link>
                   <Link to={'/teacher/uploadclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Upload Class</Link>
                   <Link to={'/teacher/runningclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Running Class</Link>
-                  <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
+                  {/* <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link> */}
                   <Link to={'/teacher/teacherblog'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Blog</Link>
                 </div>
 
@@ -132,7 +132,7 @@ const TeacherNav = () => {
                   <Link to={'/teacher/'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Dash Board</Link>
                   <Link to={'/teacher/uploadclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Upload Class</Link>
                   <Link to={'/teacher/runningclass'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Running Class</Link>
-                  <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link>
+                  {/* <Link to={'/teacher/teacherchat'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Chats</Link> */}
                   <Link to={'/teacher/teacherpayments'} className='text-white text-medium cursor-pointer py-1 hvr-underline-from-left'>Payment</Link>
                 </div>
 
